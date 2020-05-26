@@ -21,32 +21,41 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
+                'required' => true,
+                'label'    => 'Username',
                 'attr' => [
-                    'placeholder' => 'Username'
+                    'placeholder' => 'Username',
                 ],
-                new Length([
-                    'min' => 4,
-                    'minMessage' => 'Your username should be at least {{ limit }} characters',
-                    // max length allowed by Symfony for security reasons
-                    'max' => 20,
-                ]),
+                'constraints' => [
+                    new Length([
+                        'min' => 4,
+                        'minMessage' => 'Your username should be at least 4 characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 20,
+                    ]),
+                ],
             ])
             ->add('email', EmailType::class, [
+                'required' => true,
+                'label'    => 'Email',
                 'attr' => [
-                    'placeholder' => 'Email'
+                    'placeholder' => 'Email',
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'required' => true,
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
+                'label' => 'agree to our terms ',
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'required' => true,
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
@@ -61,12 +70,16 @@ class RegistrationFormType extends AbstractType
                     new PasswordStrength([
                         // longeur mini
                         'minLength'       => 6,
-                        'tooShortMessage' => 'Your password should be at least {{ limit }} characters',
+                        'tooShortMessage' => 'Your password should be at least 6 characters',
                         // force mini
                         'minStrength' => 2,
-                        'message'     => 'Your password should contain a characters and a number'
+                        'message'     => 'Your password should contain a characters and a number',
                     ]),
                 ],
+                'attr' => [
+                    'placeholder' => 'Password',
+                ],
+                'label' => 'Password',
             ]);
     }
 
