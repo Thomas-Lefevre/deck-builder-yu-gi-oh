@@ -1,2 +1,47 @@
 {% extends 'base.html.twig' %}
 
+
+
+{% block title %}
+	Page d'accueuil
+{% endblock title %}
+
+{% block body %}
+
+	<div class="container-fluid m-0 p-0">
+		<div class="row col-12 m-0 p-0">
+
+
+			<div class="row col-9">
+				{% for i in 0..4 %}
+					<div class="col-12 ">
+						<div class="bg-warning mt-2">
+							Deck ici
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-12 col-md-3 mr-auto ml-auto mt-2 p-0">
+				<div class="card " style="width: 100%">
+					<h5 class="card-title text-center">Deck de la semaine !</h5>
+					<img class="card-img-top" src="..." alt="Card image cap">
+					<div class="card-body">
+
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+				<div class="card mt-3" style="width: 100%">
+					<h5 class="card-title text-center">Carte du jour !</h5>
+					<img class="card-img-top" src="..." alt="Card image cap">
+					<div class="card-body">
+
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock body %}
