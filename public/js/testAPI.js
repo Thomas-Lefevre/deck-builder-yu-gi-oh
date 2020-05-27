@@ -10,15 +10,9 @@ function buttonClickGET(){
     var queryLoc = document.getElementById("queryLoc").value;
     var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?name="+queryLoc
 
-    $.get(url, callBackGetNom).done(function(){
-        //alert("second success");
-    })
-    .fail(function(){
+    $.get(url, callBackGetNom).fail(function(){
         alert("error");
     })
-    .always(function(){
-        //alert("finished");
-    });
 }
 
 
@@ -31,15 +25,9 @@ var callBackGetEdition = function(data){
 function buttonEditionGET(){
     var limiteSetName = document.getElementById("limiteSetName").value;
     var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?set="+limiteSetName+"&num=5&offset=0"
-    $.get(url, callBackGetEdition).done(function(){
-        //alert("second success");
-    })
-    .fail(function(){
+    $.get(url, callBackGetEdition).fail(function(){
         alert("error");
     })
-    .always(function(){
-        //alert("finished");
-    });
 }
 
 
@@ -51,13 +39,93 @@ var callBackGetRandom = function(data){
 }
 function buttonRandomGET(){
     var url="https://db.ygoprodeck.com/api/v7/randomcard.php"
-    $.get(url, callBackGetRandom).done(function(){
-        //alert("second success");
-    })
-    .fail(function(){
+    $.get(url, callBackGetRandom).fail(function(){
         alert("error");
     })
-    .always(function(){
-        //alert("finished");
-    });
+}
+
+
+
+var callBackGetLevel = function(data){
+    console.log("donnees api", data);
+    var level = document.getElementById("zone_level");
+    level.innerHTML = "Carte EAU de niveau 4 trier par attaque:"+JSON.stringify(data.data);
+}
+function buttonLevelGET(){
+    var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?level=4&attribute=water&sort=atk&num=5&offset=0"
+    $.get(url, callBackGetLevel).fail(function(){
+        alert("error");
+    })
+}
+
+
+
+var callBackGetBan = function(data){
+    console.log("donnees api", data);
+    var Ban = document.getElementById("zone_ban");
+    Ban.innerHTML = "Carte bannies de niveau 4:"+JSON.stringify(data.data);
+}
+function buttonBanGET(){
+    var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?banlist=tcg&level=4&sort=name&num=5&offset=0"
+    $.get(url, callBackGetBan).fail(function(){
+        alert("error");
+    })
+}
+
+
+
+var callBackGetFormat = function(data){
+    console.log("donnees api", data);
+    var Format = document.getElementById("zone_format");
+    Format.innerHTML = "Format speed duel:"+JSON.stringify(data.data);
+}
+function buttonFormatGET(){
+    var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?format=Speed Duel&num=5&offset=0"
+    $.get(url, callBackGetFormat).fail(function(){
+        alert("error");
+    })
+}
+
+
+
+
+var callBackGetFleche = function(data){
+    console.log("donnees api", data);
+    var fleche = document.getElementById("zone_fleche");
+    fleche.innerHTML = "Monstre lien EAU avec un flèche en haut et a droite:"+JSON.stringify(data.data);
+}
+function buttonFlecheGET(){
+    var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?attribute=water&type=Link%20Monster&linkmarker=top,bottom&num=5&offset=0"
+    $.get(url, callBackGetFleche).fail(function(){
+        alert("error");
+    })
+}
+
+
+
+
+var callBackGetStaple = function(data){
+    console.log("donnees api", data);
+    var staple = document.getElementById("zone_staple");
+    staple.innerHTML = "Carte staples:"+JSON.stringify(data.data);
+}
+function buttonStapleGET(){
+    var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?staple=yes&num=5&offset=0"
+    $.get(url, callBackGetStaple).fail(function(){
+        alert("error");
+    })
+}
+
+
+
+var callBackGetWizard = function(data){
+    console.log("donnees api", data);
+    var wizard = document.getElementById("zone_wizard");
+    wizard.innerHTML = "Carte avec \"wizard\" dans leurs nom, qui sont d'atribut lumière et qui sont magicien:"+JSON.stringify(data.data);
+}
+function buttonWizardGET(){
+    var url="https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=Wizard&attribute=light&race=spellcaster&num=5&offset=0"
+    $.get(url, callBackGetWizard).fail(function(){
+        alert("error");
+    })
 }
