@@ -53,9 +53,15 @@ class User implements UserInterface
      */
     private $avatar;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=card::class)
+     */
+    private $card;
+
     public function __construct()
     {
         $this->decks = new ArrayCollection();
+        $this->card = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,6 +188,32 @@ class User implements UserInterface
     public function setAvatar(string $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|card[]
+     */
+    public function getCard(): Collection
+    {
+        return $this->card;
+    }
+
+    public function addCard(card $card): self
+    {
+        if (!$this->card->contains($card)) {
+            $this->card[] = $card;
+        }
+
+        return $this;
+    }
+
+    public function removeCard(card $card): self
+    {
+        if ($this->card->contains($card)) {
+            $this->card->removeElement($card);
+        }
 
         return $this;
     }
