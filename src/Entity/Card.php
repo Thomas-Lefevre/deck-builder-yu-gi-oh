@@ -40,7 +40,7 @@ class Card
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 ,nullable=true)
      */
     private $attribute;
 
@@ -80,7 +80,7 @@ class Card
     private $set_rarity;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $banlist_info;
 
@@ -95,7 +95,7 @@ class Card
     private $link_markers = [];
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $link_val;
 
@@ -103,6 +103,11 @@ class Card
      * @ORM\ManyToMany(targetEntity=deck::class)
      */
     private $deck;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $id_api;
 
     public function __construct()
     {
@@ -328,6 +333,18 @@ class Card
         if ($this->deck->contains($deck)) {
             $this->deck->removeElement($deck);
         }
+
+        return $this;
+    }
+
+    public function getIdApi(): ?int
+    {
+        return $this->id_api;
+    }
+
+    public function setIdApi(int $id_api): self
+    {
+        $this->id_api = $id_api;
 
         return $this;
     }
