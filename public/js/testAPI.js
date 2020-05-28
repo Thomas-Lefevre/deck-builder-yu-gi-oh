@@ -22,6 +22,7 @@ var callBackGetEdition = function (data) {
     console.log("donnees api", data);
     var set = document.getElementById("zone_edition");
     set.innerHTML = "liste de carte :" + JSON.stringify(data.data);
+    insertCardMultiple(data.data);
     
 }
 function buttonEditionGET() {
@@ -39,6 +40,7 @@ var callBackGetRandom = function (data) {
     console.log("donnees api", data);
     var aleatoire = document.getElementById("zone_random");
     aleatoire.innerHTML = "Carte aléatoire:" + data.name;
+    insertCard(data.data[0])
 }
 function buttonRandomGET() {
     var url = "https://db.ygoprodeck.com/api/v7/randomcard.php"
@@ -144,6 +146,29 @@ function insertCard(payload) {
         crossOrigin: true,
 
         url: 'http://localhost/deckbuilder_yugioh/public/insertCard',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+
+        },
+        data: JSON.stringify(payload),
+        success: function (data) {
+            console.log('success', data);
+        },
+        error: function (data) {
+            console.log('error', data);
+        }
+    });
+}
+
+function insertCardMultiple(payload) {
+    console.log(payload);
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        crossOrigin: true,
+
+        url: 'http://localhost/deckbuilder_yugioh/public/insertCardMultiple',
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',

@@ -31,40 +31,149 @@ class TestAPIController extends AbstractController
         if ($this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data['id']])) {
             return new Response('ok', Response::HTTP_OK);
         } else {
-            if ($data -> exists($data['linkval'])) {
-                dump($data['linkval']);
-            } else {
-                echo('Nickel');
-            }
-
-            die;
+            //dump($data);
+            //die;
             //si la existe pas il faut la créer
             $card = new Card();
             $card->setIdApi($data['id']);
             $card->setNom($data['name']);
             $card->setDescription($data['desc']);
-            $card->setType($data['type']);
-            $card->setAttribute($data['attribute']);
-            $card->setRace($data['race']);
-            $card->setPrice($data['card_prices'][0]['cardmarket_price']);
-            $card->setArchetype($data['archetype']);
+
+            if (!empty($data['type'])) {
+                $card->setType($data['type']);
+            }
+            if (!empty($data['attribute'])) {
+                $card->setAttribute($data['attribute']);
+            }
+            if (!empty($data['race'])) {
+
+                $card->setRace($data['race']);
+            }
+            if (!empty($data['card_prices'][0]['cardmarket_price'])) {
+                $card->setPrice($data['card_prices'][0]['cardmarket_price']);
+            }
+            if (!empty($data['archetype'])) {
+                $card->setArchetype($data['archetype']);
+            }
             $card->setSetName($data['card_sets'][0]['set_name']);
             $card->setSetCode($data['card_sets'][0]['set_code']);
             $card->setSetRarity($data['card_sets'][0]['set_rarity']);
-            //$card->setBanlistInfo($data['banlist_info']['ban_tcg']);
-            //$card->setAtkDefLvl($data['atk'], $data['def'], $data['level']);
-            //$card->setLinkMarkers($data['linkmarkers']);
-            //$card->setLinkVal($data['linkval']);
+            if (!empty($data['banlist_info']['ban_tcg'])) {
+                $card->setBanlistInfo($data['banlist_info']['ban_tcg']);
+            }
+            $stats = ['atk' => 0, 'def' => 0, 'level' => 0];
+            if (!empty($data['atk'])) {
+                $stats['atk'] = $data['atk'];
+            }
+            if (!empty($data['def'])) {
+                $stats['def'] = $data['def'];
+            }
+            if (!empty($data['level'])) {
+                $stats['level'] = $data['level'];
+            }
+            $card->setAtkDefLvl($stats);
+            if (!empty($data['linkmarkers'])) {
+                $card->setLinkMarkers($data['linkmarkers']);
+            }
+            if (!empty($data['linkval'])) {
+                $card->setLinkVal($data['linkval']);
+            }
+            $url = $data['card_images'][0]['image_url'];
+            $img = "img/card/" . $data['id'] . ".jpeg";
+            // Enregistrer l'image normale
+            file_put_contents($img, file_get_contents($url));
+            $card->setImg($img);
+            $url_minia = $data['card_images'][0]['image_url_small'];
+            $img_minia = "img/card_minia/" . $data['id'] . "_small.jpeg";
+            // Enregistrer l'image miniature 
+            file_put_contents($img_minia, file_get_contents($url_minia));
+            $card->setImgMinia($img_minia);
 
-            $card->setImg($data['card_images'][0]['image_url']);
-            $card->setImgMinia($data['card_images'][0]['image_url_small']);
-
+            //persist
+            //flush
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($card);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('testapi'));
-            //persist
-            //flush
         }
+    }
+    /**
+     * @Route("/insertCardMultiple", name="insertCardMultiple")
+     */
+    public function insertCardMultiple(Request $request)
+    {
+
+        //jsondecode permet de remettre le Json en tableau
+        $data = json_decode($request->getContent(), true);
+        for ($i = 0; $i < 5; $i++) {
+            # code...
+            //if qui nous sert a voir si la carte existe déja dans la base de donnée
+            if ($this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']])) {
+                var_dump('Carte '.$i.'déja présente');
+            } else {
+                //si elle existe pas il faut la créer
+                $card = new Card();
+                $card->setIdApi($data[$i]['id']);
+                $card->setNom($data[$i]['name']);
+                $card->setDescription($data[$i]['desc']);
+
+                if (!empty($data[$i]['type'])) {
+                    $card->setType($data[$i]['type']);
+                }
+                if (!empty($data[$i]['attribute'])) {
+                    $card->setAttribute($data[$i]['attribute']);
+                }
+                if (!empty($data[$i]['race'])) {
+
+                    $card->setRace($data[$i]['race']);
+                }
+                if (!empty($data[$i]['card_prices'][0]['cardmarket_price'])) {
+                    $card->setPrice($data[$i]['card_prices'][0]['cardmarket_price']);
+                }
+                if (!empty($data[$i]['archetype'])) {
+                    $card->setArchetype($data[$i]['archetype']);
+                }
+                $card->setSetName($data[$i]['card_sets'][0]['set_name']);
+                $card->setSetCode($data[$i]['card_sets'][0]['set_code']);
+                $card->setSetRarity($data[$i]['card_sets'][0]['set_rarity']);
+                if (!empty($data[$i]['banlist_info']['ban_tcg'])) {
+                    $card->setBanlistInfo($data[$i]['banlist_info']['ban_tcg']);
+                }
+                $stats = ['atk' => 0, 'def' => 0, 'level' => 0];
+                if (!empty($data[$i]['atk'])) {
+                    $stats['atk'] = $data[$i]['atk'];
+                }
+                if (!empty($data[$i]['def'])) {
+                    $stats['def'] = $data[$i]['def'];
+                }
+                if (!empty($data[$i]['level'])) {
+                    $stats['level'] = $data[$i]['level'];
+                }
+                $card->setAtkDefLvl($stats);
+                if (!empty($data[$i]['linkmarkers'])) {
+                    $card->setLinkMarkers($data[$i]['linkmarkers']);
+                }
+                if (!empty($data[$i]['linkval'])) {
+                    $card->setLinkVal($data[$i]['linkval']);
+                }
+                $url = $data[$i]['card_images'][0]['image_url'];
+                $img = "img/card/" . $data[$i]['id'] . ".jpeg";
+                // Enregistrer l'image normale
+                file_put_contents($img, file_get_contents($url));
+                $card->setImg($img);
+                $url_minia = $data[$i]['card_images'][0]['image_url_small'];
+                $img_minia = "img/card_minia/" . $data[$i]['id'] . "_small.jpeg";
+                // Enregistrer l'image miniature 
+                file_put_contents($img_minia, file_get_contents($url_minia));
+                $card->setImgMinia($img_minia);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($card);
+            }
+        }
+        //persist
+        //flush
+
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('testapi'));
     }
 }
