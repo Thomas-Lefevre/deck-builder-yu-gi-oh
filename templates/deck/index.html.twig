@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deck index{% endblock %}
+
+{% block body %}
+    <h1>Deck index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Format</th>
+                <th>Nom</th>
+                <th>Note</th>
+                <th>Prix</th>
+                <th>Type</th>
+                <th>Date_post</th>
+                <th>Img</th>
+                <th>Auteur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for deck in decks %}
+            <tr>
+                <td>{{ deck.id }}</td>
+                <td>{{ deck.format }}</td>
+                <td>{{ deck.nom }}</td>
+                <td>{{ deck.note }}</td>
+                <td>{{ deck.prix }}</td>
+                <td>{{ deck.type }}</td>
+                <td>{{ deck.datePost ? deck.datePost|date('Y-m-d') : '' }}</td>
+                <td>{{ deck.img }}</td>
+                <td>{{ deck.auteur }}</td>
+                <td>
+                    <a href="{{ path('deck_show', {'id': deck.id}) }}">show</a>
+                    <a href="{{ path('deck_edit', {'id': deck.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('deck_new') }}">Create new</a>
+{% endblock %}

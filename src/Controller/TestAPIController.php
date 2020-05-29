@@ -109,7 +109,7 @@ class TestAPIController extends AbstractController
             # code...
             //if qui nous sert a voir si la carte existe déja dans la base de donnée
             if ($this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']])) {
-                var_dump('Carte '.$i.'déja présente');
+                dump('Carte ' . $i . ' déja présente');
             } else {
                 //si elle existe pas il faut la créer
                 $card = new Card();
@@ -168,12 +168,14 @@ class TestAPIController extends AbstractController
                 $card->setImgMinia($img_minia);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($card);
+                //persist
             }
         }
-        //persist
+        
         //flush
-
-        $entityManager->flush();
+        if (!empty($entityManager)) {
+            $entityManager->flush();
+        }
         return $this->redirect($this->generateUrl('testapi'));
     }
 }
