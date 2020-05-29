@@ -19,22 +19,22 @@ class CardRepository extends ServiceEntityRepository
         parent::__construct($registry, Card::class);
     }
 
-    // /**
-    //  * @return Card[] Returns an array of Card objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+      * @return Card[] Returns an array of Card objects
+    */
+    
+    public function findByCard(Card $searchCard)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->andWhere('c.nom = :nom')
+            ->setParameter('nom', $searchCard -> getNom())
+            ->orderBy('c.nom', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Card
