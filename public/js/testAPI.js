@@ -1,7 +1,7 @@
 var callBackGetNom = function (data) {
     console.log("donnees api", data);
-    var element = document.getElementById("zone_carte");
-    element.innerHTML = "description de la carte :" + data.data[0].desc;
+    // var element = document.getElementById("zone_carte");
+    // element.innerHTML = "description de la carte :" + data.data[0].desc;
     insertCard(data.data[0])
     // alert("description :" + data.desc)
 }
@@ -9,7 +9,7 @@ var callBackGetNom = function (data) {
 
 function buttonClickGET() {
     var queryLoc = document.getElementById("queryLoc").value;
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?name=" + queryLoc
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=" + queryLoc
 
     $.get(url, callBackGetNom).fail(function () {
         alert("error");
@@ -40,7 +40,7 @@ var callBackGetRandom = function (data) {
     console.log("donnees api", data);
     var aleatoire = document.getElementById("zone_random");
     aleatoire.innerHTML = "Carte aléatoire:" + data.name;
-    insertCard(data.data[0])
+    insertCard(data)
 }
 function buttonRandomGET() {
     var url = "https://db.ygoprodeck.com/api/v7/randomcard.php"
@@ -55,6 +55,7 @@ var callBackGetLevel = function (data) {
     console.log("donnees api", data);
     var level = document.getElementById("zone_level");
     level.innerHTML = "Carte EAU de niveau 4 trier par attaque:" + JSON.stringify(data.data);
+    insertCardMultiple(data.data);
 }
 function buttonLevelGET() {
     var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?level=4&attribute=water&sort=atk&num=5&offset=0"

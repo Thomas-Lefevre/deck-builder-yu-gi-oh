@@ -172,8 +172,9 @@ class TestAPIController extends AbstractController
         }
         //persist
         //flush
-
-        $entityManager->flush();
+        if (!empty($entityManager)) {
+            $entityManager->flush();
+        }
         return $this->redirect($this->generateUrl('testapi'));
     }
 }
