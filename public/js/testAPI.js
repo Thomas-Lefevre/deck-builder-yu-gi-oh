@@ -40,7 +40,10 @@ var callBackGetRandom = function (data) {
     console.log("donnees api", data);
     var aleatoire = document.getElementById("zone_random");
     aleatoire.innerHTML = "Carte aléatoire:" + data.name;
+<<<<<<< HEAD
     insertCard(data)
+=======
+>>>>>>> 11e832bedae69aaa887a5b36b295bc29e9bae299
 }
 function buttonRandomGET() {
     var url = "https://db.ygoprodeck.com/api/v7/randomcard.php"
