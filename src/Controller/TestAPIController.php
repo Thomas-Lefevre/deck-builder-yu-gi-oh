@@ -94,8 +94,8 @@ class TestAPIController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($card);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('testapi'));
         }
+        return $this->redirect($this->generateUrl('home'));
     }
     /**
      * @Route("/insertCardMultiple", name="insertCardMultiple")
@@ -166,9 +166,10 @@ class TestAPIController extends AbstractController
                 // Enregistrer l'image miniature 
                 file_put_contents($img_minia, file_get_contents($url_minia));
                 $card->setImgMinia($img_minia);
+                //persist
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($card);
-                //persist
+                
             }
         }
         

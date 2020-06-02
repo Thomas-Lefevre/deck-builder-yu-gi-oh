@@ -40,10 +40,7 @@ var callBackGetRandom = function (data) {
     console.log("donnees api", data);
     var aleatoire = document.getElementById("zone_random");
     aleatoire.innerHTML = "Carte aléatoire:" + data.name;
-<<<<<<< HEAD
     insertCard(data)
-=======
->>>>>>> 11e832bedae69aaa887a5b36b295bc29e9bae299
 }
 function buttonRandomGET() {
     var url = "https://db.ygoprodeck.com/api/v7/randomcard.php"
@@ -140,7 +137,7 @@ function buttonWizardGET() {
 }
 
 
-
+//*************************************** AJAX **************************************************/
 
 function insertCard(payload) {
     console.log(payload);
@@ -160,7 +157,7 @@ function insertCard(payload) {
             console.log('success', data);
         },
         error: function (data) {
-            console.log('error', data);
+            console.log('status', data);
         }
     });
 }
@@ -183,7 +180,7 @@ function insertCardMultiple(payload) {
             console.log('success', data);
         },
         error: function (data) {
-            console.log('error', data);
+            console.log('status', data);
         }
     });
 }
