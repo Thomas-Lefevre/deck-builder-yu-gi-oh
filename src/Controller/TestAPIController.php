@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Card;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\ErrorHandler\Error\UndefinedMethodError;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\ErrorHandler\Error\UndefinedMethodError;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestAPIController extends AbstractController
 {
@@ -28,8 +30,9 @@ class TestAPIController extends AbstractController
         //jsondecode permet de remettre le Json en tableau
         $data = json_decode($request->getContent(), true);
         //if qui nous sert a voir si la carte existe déja dans la base de donnée
-        if ($this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data['id']])) {
-            return new Response('ok', Response::HTTP_OK);
+        $card = $this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data['id']]);
+        if ($card) {
+            
         } else {
             //dump($data);
             //die;
@@ -95,7 +98,8 @@ class TestAPIController extends AbstractController
             $entityManager->persist($card);
             $entityManager->flush();
         }
-        return $this->redirect($this->generateUrl('home'));
+        $id = $card ->getIdApi();
+        return new JsonResponse(['redirect'=>$this->generateUrl("findCard", ['id_api' => $id] , UrlGeneratorInterface::ABSOLUTE_URL)] , Response::HTTP_OK);
     }
     /**
      * @Route("/insertCardMultiple", name="insertCardMultiple")

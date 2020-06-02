@@ -154,7 +154,7 @@ function insertCard(payload) {
         },
         data: JSON.stringify(payload),
         success: function (data) {
-            console.log('success', data);
+            window.location = data.redirect;
         },
         error: function (data) {
             console.log('status', data);
