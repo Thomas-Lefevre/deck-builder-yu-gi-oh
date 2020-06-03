@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     router.request_context.host: 'http://localhost/'
-    router.request_context.base_url: 'deckbuilder_yugioh/public/'
+    router.request_context.base_url: 'deck-builder-yu-gi-oh/public/'
     asset.request_context.base_path: '%router.request_context.base_url%'
 
 services:

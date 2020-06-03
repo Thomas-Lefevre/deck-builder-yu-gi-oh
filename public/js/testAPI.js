@@ -23,7 +23,7 @@ var callBackGetEdition = function (data) {
     var set = document.getElementById("zone_edition");
     set.innerHTML = "liste de carte :" + JSON.stringify(data.data);
     insertCardMultiple(data.data);
-    
+
 }
 function buttonEditionGET() {
     var limiteSetName = document.getElementById("limiteSetName").value;
@@ -31,7 +31,7 @@ function buttonEditionGET() {
     $.get(url, callBackGetEdition).fail(function () {
         alert("error");
     })
-    
+
 }
 
 
@@ -58,7 +58,7 @@ var callBackGetLevel = function (data) {
     insertCardMultiple(data.data);
 }
 function buttonLevelGET() {
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?level=4&attribute=water&sort=atk&num=5&offset=0"
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?level=4&attribute=water&sort=atk&num=8&offset=0"
     $.get(url, callBackGetLevel).fail(function () {
         alert("error");
     })
@@ -99,6 +99,7 @@ var callBackGetFleche = function (data) {
     console.log("donnees api", data);
     var fleche = document.getElementById("zone_fleche");
     fleche.innerHTML = "Monstre lien EAU avec un flèche en haut et a droite:" + JSON.stringify(data.data);
+    insertCardMultiple(data.data)
 }
 function buttonFlecheGET() {
     var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?attribute=water&type=Link%20Monster&linkmarker=top,bottom&num=5&offset=0"
@@ -145,7 +146,7 @@ var callBackGetFiltre = function (data) {
 }
 function buttonFiltreGET() {
     var filtreLimit = document.getElementById("filtreLimit").value;
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=Wizard"+filtreLimit+"&race=spellcaster&num=5&offset=0"
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=Wizard" + filtreLimit + "&race=spellcaster&num=5&offset=0"
     $.get(url, callBackGetFiltre).fail(function () {
         alert("error");
     })
@@ -156,12 +157,22 @@ function buttonFiltreGET() {
 
 function insertCard(payload) {
     console.log(payload);
+    // préparation de l'url pour pouvoir l'utiliser partout,
+    // même pour les personnes qui le mettent a des chemins différents
+    let url = '';
+    let chemin = window.location.href.split('/');
+    for (let i = 0; i < chemin.length; i++) {
+        url += chemin[i] + '/';
+        if (chemin[i] === 'public') {
+            break;
+        }
+    }
     $.ajax({
         type: 'POST',
         dataType: 'json',
         crossOrigin: true,
 
-        url: 'http://localhost/deckbuilder_yugioh/public/insertCard',
+        url: url + 'insertCard',
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
@@ -179,12 +190,22 @@ function insertCard(payload) {
 
 function insertCardMultiple(payload) {
     console.log(payload);
+    // préparation de l'url pour pouvoir l'utiliser partout,
+    // même pour les personnes qui le mettent a des chemins différents
+    let url = '';
+    let chemin = window.location.href.split('/');
+    for (let i = 0; i < chemin.length; i++) {
+        url += chemin[i] + '/';
+        if (chemin[i] === 'public') {
+            break;
+        }
+    }
     $.ajax({
         type: 'POST',
         dataType: 'json',
         crossOrigin: true,
 
-        url: 'http://localhost/deckbuilder_yugioh/public/insertCardMultiple',
+        url: url + 'insertCardMultiple',
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',

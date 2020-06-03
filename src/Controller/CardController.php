@@ -37,17 +37,6 @@ class CardController extends AbstractController
      */
     public function searchCard(Request $request, CardRepository $cardRepository)
     {
-        $cards = [];
-        $searchCardForm = $this->createForm(CardType::class, $cards);
-
-
-        if ($searchCardForm->handleRequest($request)->isSubmitted() && $searchCardForm->isValid()) {
-            $searchCard = $searchCardForm->getData();
-            $cards = $cardRepository->searchCard($searchCard);
-        }
-        return $this->render('card/card.html.twig', [
-            'searchCardForm' => $searchCardForm->createView(),
-            'cards' => $cards,
-        ]);
+        
     }
 }

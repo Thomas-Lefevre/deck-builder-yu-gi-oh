@@ -1,24 +1,26 @@
 {% extends 'base.html.twig' %}
 
 
-  
-{% block title %}card{% endblock %}
+{% block title %}card
+{% endblock %}
 
 {% block body %}
-    <h1>card</h1>
+	<h1>{{card.nom}}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ card.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ card.nom }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
 
-  
+			<tr>
+				<img src="{{ asset(card.img)}}" alt="">
+				<th>Id</th>
+				<td>{{ card.id }}</td>
+			</tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ card.nom }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+
 {% endblock %}

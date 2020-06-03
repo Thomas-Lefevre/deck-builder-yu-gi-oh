@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Card;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\ErrorHandler\Error\UndefinedMethodError;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestAPIController extends AbstractController
 {
@@ -85,7 +84,7 @@ class TestAPIController extends AbstractController
             $card->setImg($img);
             $url_minia = $data['card_images'][0]['image_url_small'];
             $img_minia = "img/card_minia/" . $data['id'] . "_small.jpeg";
-            // Enregistrer l'image miniature 
+            // Enregistrer l'image miniature
             file_put_contents($img_minia, file_get_contents($url_minia));
             $card->setImgMinia($img_minia);
 
@@ -106,13 +105,19 @@ class TestAPIController extends AbstractController
 
         //jsondecode permet de remettre le Json en tableau
         $data = json_decode($request->getContent(), true);
-        for ($i = 0; $i < 5; $i++) {
+        // on stocke le count($data) dans une variable pour que 
+        // le for ne le recalcule pas a chaque tout de boucle
+        $dataLength  = \count($data);
+        // count($data) sert ici a s'arreter quand il a lu loutes les valeurs du tableau de données que l'api nous donne
+        for ($i = 0; $i < $dataLength; $i++) {
             # code...
             //if qui nous sert a voir si la carte existe déja dans la base de donnée
-            if ($this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']])) {
-                dump('Carte ' . $i . ' déja présente');
+            $card = $this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']]);
+            var_dump($data[$i]['id']);
+            if ($card) {
             } else {
                 //si elle existe pas il faut la créer
+
                 $card = new Card();
                 $card->setIdApi($data[$i]['id']);
                 $card->setNom($data[$i]['name']);
@@ -162,7 +167,7 @@ class TestAPIController extends AbstractController
                 $card->setImg($img);
                 $url_minia = $data[$i]['card_images'][0]['image_url_small'];
                 $img_minia = "img/card_minia/" . $data[$i]['id'] . "_small.jpeg";
-                // Enregistrer l'image miniature 
+                // Enregistrer l'image miniature
                 file_put_contents($img_minia, file_get_contents($url_minia));
                 $card->setImgMinia($img_minia);
                 //persist
