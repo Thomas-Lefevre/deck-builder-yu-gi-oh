@@ -27,7 +27,7 @@ var callBackGetEdition = function (data) {
 }
 function buttonEditionGET() {
     var limiteSetName = document.getElementById("limiteSetName").value;
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?set=" + limiteSetName + "&num=5&offset=0"
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?set=" + limiteSetName + "&num=15&offset=25"
     $.get(url, callBackGetEdition).fail(function () {
         alert("error");
     })
@@ -132,6 +132,21 @@ var callBackGetWizard = function (data) {
 function buttonWizardGET() {
     var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=Wizard&attribute=light&race=spellcaster&num=5&offset=0"
     $.get(url, callBackGetWizard).fail(function () {
+        alert("error");
+    })
+}
+
+
+
+var callBackGetFiltre = function (data) {
+    console.log("donnees api", data);
+    var filtre = document.getElementById("zone_filtre");
+    filtre.innerHTML = "Carte avec \"wizard\" dans leurs nom, qui sont d'atribut lumière et qui sont magicien:" + JSON.stringify(data.data);
+}
+function buttonFiltreGET() {
+    var filtreLimit = document.getElementById("filtreLimit").value;
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=Wizard"+filtreLimit+"&race=spellcaster&num=5&offset=0"
+    $.get(url, callBackGetFiltre).fail(function () {
         alert("error");
     })
 }
