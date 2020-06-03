@@ -1,11 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Deck{% endblock %}
+{% block title %}New Deck
+{% endblock title %}
+
 
 {% block body %}
-    <h1>Create new Deck</h1>
 
-    {{ include('deck/_form.html.twig') }}
 
-    <a href="{{ path('deck_index') }}">back to list</a>
-{% endblock %}
+	<div class="container-fluid m-0 p-0">
+
+		<div class="row col-12 m-0 p-0">
+
+
+			<div class="row col-9 align-items-center">
+
+				<p class="floatLeft ml-2">Deck format :</p>
+				<div class="floatLeft mt-2 ml-2">
+					{{ form_row(newDeckForm.format ) }}
+				</div>
+				<p class="floatLeft ml-2">Deck type :</p>
+				<div class="floatLeft mt-2 ml-2">
+					{{ form_row(newDeckForm.type) }}
+				</div>
+				<div class="col-12 ">
+					<div>
+						Filtre de recherches ici
+					</div>
+					<div>
+						Resultats de la recherche ici
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-3 mr-auto ml-auto mt-2 p-0">
+				{{ form(newDeckForm.nom) }}
+                <div>
+					Decklist ici
+				</div>
+			</div>
+		</div>
+		<button class="btn">{{ button_label|default('Save') }}</button>
+
+
+		<a href="{{ path('deck_index') }}">back to list</a>
+	{% endblock body %}

@@ -32,7 +32,6 @@ class TestAPIController extends AbstractController
         //if qui nous sert a voir si la carte existe déja dans la base de donnée
         $card = $this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data['id']]);
         if ($card) {
-            
         } else {
             //dump($data);
             //die;
@@ -64,17 +63,15 @@ class TestAPIController extends AbstractController
             if (!empty($data['banlist_info']['ban_tcg'])) {
                 $card->setBanlistInfo($data['banlist_info']['ban_tcg']);
             }
-            $stats = ['atk' => 0, 'def' => 0, 'level' => 0];
             if (!empty($data['atk'])) {
-                $stats['atk'] = $data['atk'];
+                $card->setAtk($data['atk']);
             }
             if (!empty($data['def'])) {
-                $stats['def'] = $data['def'];
+                $card->setDef($data['def']);
             }
             if (!empty($data['level'])) {
-                $stats['level'] = $data['level'];
+                $card->setLevel($data['level']);
             }
-            $card->setAtkDefLvl($stats);
             if (!empty($data['linkmarkers'])) {
                 $card->setLinkMarkers($data['linkmarkers']);
             }
@@ -98,8 +95,8 @@ class TestAPIController extends AbstractController
             $entityManager->persist($card);
             $entityManager->flush();
         }
-        $id = $card ->getIdApi();
-        return new JsonResponse(['redirect'=>$this->generateUrl("findCard", ['id_api' => $id] , UrlGeneratorInterface::ABSOLUTE_URL)] , Response::HTTP_OK);
+        $id = $card->getIdApi();
+        return new JsonResponse(['redirect' => $this->generateUrl("findCard", ['id_api' => $id], UrlGeneratorInterface::ABSOLUTE_URL)], Response::HTTP_OK);
     }
     /**
      * @Route("/insertCardMultiple", name="insertCardMultiple")
@@ -143,17 +140,15 @@ class TestAPIController extends AbstractController
                 if (!empty($data[$i]['banlist_info']['ban_tcg'])) {
                     $card->setBanlistInfo($data[$i]['banlist_info']['ban_tcg']);
                 }
-                $stats = ['atk' => 0, 'def' => 0, 'level' => 0];
                 if (!empty($data[$i]['atk'])) {
-                    $stats['atk'] = $data[$i]['atk'];
+                    $card->setAtk($data[$i]['atk']);
                 }
                 if (!empty($data[$i]['def'])) {
-                    $stats['def'] = $data[$i]['def'];
+                    $card->setDef($data[$i]['def']);
                 }
                 if (!empty($data[$i]['level'])) {
-                    $stats['level'] = $data[$i]['level'];
+                    $card->setLevel($data[$i]['level']);
                 }
-                $card->setAtkDefLvl($stats);
                 if (!empty($data[$i]['linkmarkers'])) {
                     $card->setLinkMarkers($data[$i]['linkmarkers']);
                 }
@@ -173,10 +168,9 @@ class TestAPIController extends AbstractController
                 //persist
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($card);
-                
             }
         }
-        
+
         //flush
         if (!empty($entityManager)) {
             $entityManager->flush();

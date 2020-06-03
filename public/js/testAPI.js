@@ -9,7 +9,7 @@ var callBackGetNom = function (data) {
 
 function buttonClickGET() {
     var queryLoc = document.getElementById("queryLoc").value;
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=" + queryLoc
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?name=" + queryLoc
 
     $.get(url, callBackGetNom).fail(function () {
         alert("error");

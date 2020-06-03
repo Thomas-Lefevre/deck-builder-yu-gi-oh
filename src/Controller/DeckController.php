@@ -44,7 +44,7 @@ class DeckController extends AbstractController
 
         return $this->render('deck/new.html.twig', [
             'deck' => $deck,
-            'form' => $form->createView(),
+            'newDeckForm' => $form->createView(),
         ]);
     }
 

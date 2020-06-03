@@ -58,7 +58,7 @@ class Deck
     private $auteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="decks")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="decks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_user;

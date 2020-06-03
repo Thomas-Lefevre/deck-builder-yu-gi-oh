@@ -54,7 +54,7 @@ class User implements UserInterface
     private $avatar;
 
     /**
-     * @ORM\ManyToMany(targetEntity=card::class)
+     * @ORM\ManyToMany(targetEntity=Card::class)
      */
     private $card;
 
@@ -216,5 +216,11 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->username;
+        // to show the id of the Category in the select
+        // return $this->id;
     }
 }

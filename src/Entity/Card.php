@@ -84,10 +84,6 @@ class Card
      */
     private $banlist_info;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $atkDefLvl = [];
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -100,7 +96,7 @@ class Card
     private $link_val;
 
     /**
-     * @ORM\ManyToMany(targetEntity=deck::class)
+     * @ORM\ManyToMany(targetEntity=Deck::class)
      */
     private $deck;
 
@@ -108,6 +104,21 @@ class Card
      * @ORM\Column(type="integer")
      */
     private $id_api;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $atk;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $def;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $level;
 
     public function __construct()
     {
@@ -275,18 +286,6 @@ class Card
         return $this;
     }
 
-    public function getAtkDefLvl(): ?array
-    {
-        return $this->atkDefLvl;
-    }
-
-    public function setAtkDefLvl(?array $atkDefLvl): self
-    {
-        $this->atkDefLvl = $atkDefLvl;
-
-        return $this;
-    }
-
     public function getLinkMarkers(): ?array
     {
         return $this->link_markers;
@@ -345,6 +344,42 @@ class Card
     public function setIdApi(int $id_api): self
     {
         $this->id_api = $id_api;
+
+        return $this;
+    }
+
+    public function getAtk(): ?int
+    {
+        return $this->atk;
+    }
+
+    public function setAtk(?int $atk): self
+    {
+        $this->atk = $atk;
+
+        return $this;
+    }
+
+    public function getDef(): ?int
+    {
+        return $this->def;
+    }
+
+    public function setDef(?int $def): self
+    {
+        $this->def = $def;
+
+        return $this;
+    }
+
+    public function getLevel(): ?int
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?int $level): self
+    {
+        $this->level = $level;
 
         return $this;
     }
