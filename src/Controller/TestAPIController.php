@@ -112,8 +112,7 @@ class TestAPIController extends AbstractController
         for ($i = 0; $i < $dataLength; $i++) {
             # code...
             //if qui nous sert a voir si la carte existe déja dans la base de donnée
-            $card = $this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']]);
-            var_dump($data[$i]['id']);
+            $card = $this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']]);  
             if ($card) {
             } else {
                 //si elle existe pas il faut la créer
