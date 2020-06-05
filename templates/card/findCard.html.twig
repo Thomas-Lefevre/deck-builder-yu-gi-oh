@@ -1,26 +1,55 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}card
-{% endblock %}
+{% block title %}{{ card.nom }}{% endblock title %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/findCard.css') }}">
+{% endblock stylesheets %}
+
 
 {% block body %}
-	<h1>{{card.nom}}</h1>
-
-	<table class="table">
-		<tbody>
-
-			<tr>
-				<img src="{{ asset(card.img)}}" alt="">
-				<th>Id</th>
-				<td>{{ card.id }}</td>
-			</tr>
-			<tr>
-				<th>Nom</th>
-				<td>{{ card.nom }}</td>
-			</tr>
-		</tbody>
-	</table>
 
 
-{% endblock %}
+<div class="container">
+	<div class="row col-12">
+		<div class="col-5">
+			<img id="imageCard" src="{{ asset(card.img) }}" alt="{{card.nom}}">
+		</div>
+		<div id="details" class="row col-7 bg-dark text-light">
+			<div class="col-6">
+				<p>Name: {{ card.nom }}</p>
+			</div>
+			<div class="col-6">
+				<p>Level: {{ card.level }}</p>
+			</div>
+			<div class="col-4">
+				<p>  card.type  </p>
+			</div>
+			<div class="col-4">
+				<p> {{ card.attribute }} </p>
+			</div>
+			<div class="col-4">
+				<p> {{ card.race }} </p>
+			</div>
+			<div class="col-6">
+				<p>Atk: {{ card.atk }} </p>
+			</div>
+			<div class="col-6">
+				<p>Def: {{ card.def }} </p>
+			</div>
+			<div class="col-12">
+				<p>Archetype: {{ card.archetype }} </p>
+			</div>
+			<div class="col-12">
+				<p>Description: {{ card.description }} </p>
+			</div>
+			<div class="col-12">
+				<p>Price on Cardmarket: {{ card.price }} </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock body %}
