@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Card;
+use App\Entity\CardType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +42,25 @@ class TestAPIController extends AbstractController
             $card->setDescription($data['desc']);
 
             if (!empty($data['type'])) {
-                $card->setType($data['type']);
+                $types = explode(' ', $data['type']);
+                foreach ($types as $type) {
+                    switch ($type) {
+                        case 'Card':
+                            //continue 2 car continue est considere comme un break
+                            continue 2;
+                        case 'Spell':
+                            $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Spell Card']);
+                            break;
+                        case 'Trap':
+                            $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Trap Card']);
+                            break;
+                        default:
+                            $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => $type]);
+                    }
+                    if ($entity) {
+                        $card->addCardType($entity);
+                    }
+                }
             }
             if (!empty($data['attribute'])) {
                 $card->setAttribute($data['attribute']);
@@ -56,9 +75,15 @@ class TestAPIController extends AbstractController
             if (!empty($data['archetype'])) {
                 $card->setArchetype($data['archetype']);
             }
-            $card->setSetName($data['card_sets'][0]['set_name']);
-            $card->setSetCode($data['card_sets'][0]['set_code']);
-            $card->setSetRarity($data['card_sets'][0]['set_rarity']);
+            if (!empty($data['card_sets'][0]['set_name'])) {
+                $card->setSetName($data['card_sets'][0]['set_name']);
+            }
+            if (!empty($data['card_sets'][0]['set_code'])) {
+                $card->setSetCode($data['card_sets'][0]['set_code']);
+            }
+            if (!empty($data['card_sets'][0]['set_rarity'])) {
+                $card->setSetRarity($data['card_sets'][0]['set_rarity']);
+            }
             if (!empty($data['banlist_info']['ban_tcg'])) {
                 $card->setBanlistInfo($data['banlist_info']['ban_tcg']);
             }
@@ -92,6 +117,7 @@ class TestAPIController extends AbstractController
             //flush
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($card);
+
             $entityManager->flush();
         }
         $id = $card->getIdApi();
@@ -105,14 +131,15 @@ class TestAPIController extends AbstractController
 
         //jsondecode permet de remettre le Json en tableau
         $data = json_decode($request->getContent(), true);
-        // on stocke le count($data) dans une variable pour que 
+        // on stocke le count($data) dans une variable pour que
         // le for ne le recalcule pas a chaque tout de boucle
-        $dataLength  = \count($data);
+        // le \ sert a ce que la fonction s'éxécute plus vite et appelle celle implémentée dans namespace global de php
+        $dataLength = \count($data);
         // count($data) sert ici a s'arreter quand il a lu loutes les valeurs du tableau de données que l'api nous donne
         for ($i = 0; $i < $dataLength; $i++) {
             # code...
             //if qui nous sert a voir si la carte existe déja dans la base de donnée
-            $card = $this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']]);  
+            $card = $this->getDoctrine()->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']]);
             if ($card) {
             } else {
                 //si elle existe pas il faut la créer
@@ -123,7 +150,25 @@ class TestAPIController extends AbstractController
                 $card->setDescription($data[$i]['desc']);
 
                 if (!empty($data[$i]['type'])) {
-                    $card->setType($data[$i]['type']);
+                    $types = explode(' ', $data[$i]['type']);
+                    foreach ($types as $type) {
+                        switch ($type) {
+                            case 'Card':
+                                //continue 2 car continue est considere comme un break
+                                continue 2;
+                            case 'Spell':
+                                $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Spell Card']);
+                                break;
+                            case 'Trap':
+                                $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Trap Card']);
+                                break;
+                            default:
+                                $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => $type]);
+                        }
+                        if ($entity) {
+                            $card->addCardType($entity);
+                        }
+                    }
                 }
                 if (!empty($data[$i]['attribute'])) {
                     $card->setAttribute($data[$i]['attribute']);
@@ -138,9 +183,15 @@ class TestAPIController extends AbstractController
                 if (!empty($data[$i]['archetype'])) {
                     $card->setArchetype($data[$i]['archetype']);
                 }
-                $card->setSetName($data[$i]['card_sets'][0]['set_name']);
-                $card->setSetCode($data[$i]['card_sets'][0]['set_code']);
-                $card->setSetRarity($data[$i]['card_sets'][0]['set_rarity']);
+                if (!empty($data[$i]['card_sets'][0]['set_name'])) {
+                    $card->setSetName($data[$i]['card_sets'][0]['set_name']);
+                }
+                if (!empty($data[$i]['card_sets'][0]['set_code'])) {
+                    $card->setSetCode($data[$i]['card_sets'][0]['set_code']);
+                }
+                if (!empty($data['card_sets'][0]['set_rarity'])) {
+                    $card->setSetRarity($data[$i]['card_sets'][0]['set_rarity']);
+                }
                 if (!empty($data[$i]['banlist_info']['ban_tcg'])) {
                     $card->setBanlistInfo($data[$i]['banlist_info']['ban_tcg']);
                 }

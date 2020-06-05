@@ -34,10 +34,6 @@ class Card
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
 
     /**
      * @ORM\Column(type="string", length=255 ,nullable=true)
@@ -45,12 +41,12 @@ class Card
     private $attribute;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $race;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $price;
 
@@ -65,17 +61,17 @@ class Card
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $set_name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $set_code;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $set_rarity;
 
@@ -83,7 +79,6 @@ class Card
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $banlist_info;
-
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -120,9 +115,15 @@ class Card
      */
     private $level;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CardType::class, mappedBy="cards")
+     */
+    private $cardTypes;
+
     public function __construct()
     {
         $this->deck = new ArrayCollection();
+        $this->cardTypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,18 +163,6 @@ class Card
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }
@@ -383,4 +372,33 @@ class Card
 
         return $this;
     }
+
+    /**
+     * @return Collection|CardType[]
+     */
+    public function getCardTypes(): Collection
+    {
+        return $this->cardTypes;
+    }
+
+    public function addCardType(CardType $cardType): self
+    {
+        if (!$this->cardTypes->contains($cardType)) {
+            $this->cardTypes[] = $cardType;
+            $cardType->addCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCardType(CardType $cardType): self
+    {
+        if ($this->cardTypes->contains($cardType)) {
+            $this->cardTypes->removeElement($cardType);
+            $cardType->removeCard($this);
+        }
+
+        return $this;
+    }
+
 }

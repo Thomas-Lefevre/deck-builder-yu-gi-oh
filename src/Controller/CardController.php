@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Card;
-use App\Form\CardType;
+use App\Data\SearchData;
+use App\Form\SearchType;
 use App\Repository\CardRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,11 +18,15 @@ class CardController extends AbstractController
     /**
      * @Route("/", name="card")
      */
-    public function index( CardRepository $cardRepository)
+    public function index( CardRepository $cardRepository,Request $request)
     {
-        $cards = $cardRepository -> findSearch();
+        $data = new SearchData();
+        $form = $this->createForm(SearchType::class, $data);
+        $form->handleRequest($request);
+        $cards = $cardRepository -> findSearch($data);
         return $this->render('card/card.html.twig', [
             'cards' => $cards,
+            'form' => $form->createView(),
 0        ]);
     }
     /**

@@ -9,3 +9,7 @@
 .card-title{
     text-align: center;
 }
+.sticky{
+    position: sticky;
+    top: 2.8rem;
+}
