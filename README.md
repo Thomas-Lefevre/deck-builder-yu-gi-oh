@@ -18,3 +18,17 @@ composer require beberlei/doctrineextensions
 ```
 composer require --dev orm-fixtures
 ```
+
+# Initialiser le projet chez sois :
+- 1 
+````
+composer update
+````
+- 2 
+```` 
+php bin/console doctrine:database:create
+````
+- 3
+````
+php bin/console doctrine:migrations:migrate
+````

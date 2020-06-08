@@ -8,13 +8,13 @@
 {% endblock title %}
 
 {% block body %}
-	<div class="container-fluid">
+	<div class="container-fluid js-filter">
 		<div class="row ">
-			<div class="col-md-3 ">
+			<div class="col-md-3 js-filter-form">
 				{% include "card/_filter.html.twig" %}
 			</div>
 			<div class="col-md-9">
-				<div class="grid">
+				<div class="grid js-filter-content">
 
 					{% set orderBy = app.request.query.get("order") %}
                     {% if orderBy is empty %}
