@@ -31,19 +31,21 @@
 					<p>
 						Card-type:
 						{% for cardType in card.cardTypes %}
-						{% if loop.length == 1 %}
-						{{cardType.name}}
-						{% else %}
-						{% if loop.last %}
-						and
-						{{cardType.name}}
-						{% elseif loop.first %}
-						{{cardType.name}},
-						{% else %}
-						,
-						{{cardType.name}}
-						{% endif %}
-						{% endif %}
+							{% if loop.length == 1 %}
+								{{cardType.name}}
+							{% else %}
+
+								{% if loop.last %}
+									and
+									{{cardType.name}}
+								{% elseif loop.first %}
+									{{cardType.name}},
+								{% else %}
+									,
+									{{cardType.name}}
+								{% endif %}
+							{% endif %}
+
 						{% endfor %}
 					</p>
 				</div>
