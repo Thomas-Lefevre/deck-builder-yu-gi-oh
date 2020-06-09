@@ -54,6 +54,9 @@ class TestAPIController extends AbstractController
                         case 'Trap':
                             $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Trap Card']);
                             break;
+                        case 'Skill':
+                            $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Skill Card']);
+                            break;
                         default:
                             $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => $type]);
                     }
@@ -161,6 +164,9 @@ class TestAPIController extends AbstractController
                                 break;
                             case 'Trap':
                                 $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Trap Card']);
+                                break;
+                            case 'Skill':
+                                $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => 'Skill Card']);
                                 break;
                             default:
                                 $entity = $this->getDoctrine()->getRepository(CardType::class)->findOneBy(["name" => $type]);

@@ -23,6 +23,7 @@ class SearchType extends AbstractType
             return $element['archetype_name'];
         } , $json);
         $archetypeChoices = array_combine($tmp,$tmp);
+        
         $builder
             ->add('q', TextType::class, [
                 'label' => false,
@@ -172,7 +173,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'placeholder'=> 'Archetype',
-                'choices' => $archetypeChoices,     
+                'choices' => $archetypeChoices,
             ])
             ->add('banlist_info', ChoiceType::class, [
                 'required' => false,
