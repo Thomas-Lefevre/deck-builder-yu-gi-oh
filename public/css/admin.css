@@ -1,0 +1,15 @@
+#acces{
+    margin: auto;
+    margin-top: 10vh;
+    padding-top: 22vh;
+    background-image: url(../img/dos_carte_yugioh.jpg);
+    background-size: cover;
+    height: 700px;
+    width: 450px;
+    text-align: center;
+    font-size: 3em;
+}
+a{
+    text-decoration: none;
+    color: white;
+}

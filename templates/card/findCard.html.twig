@@ -13,21 +13,21 @@
 {% block body %}
 
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row col-12">
-		<div class="col-5">
+		<div class="col-3">
 			<img src="{{ asset(card.img) }}" alt="{{card.nom}}">
 		</div>
 		<div class="row col-5 ml-5">
-				<div class="row col-6">
+				<div class="row col-8">
 					<p>Name:
 						{{ card.nom }}</p>
 				</div>
-				<div class="row col-6">
+				<div class="row col-4">
 					<p>Level:
 						{{ card.level|default("has no level") }}</p>
 				</div>
-				<div class="row col-4 ">
+				<div class="row col-7 ">
 					<p>
 						Card-type:
 						{% for cardType in card.cardTypes %}
@@ -49,12 +49,12 @@
 						{% endfor %}
 					</p>
 				</div>
-				<div class="row col-4">
+				<div class="row col-3">
 					<p>
 						{{ card.attribute }}
 					</p>
 				</div>
-				<div class="row col-4">
+				<div class="row col-2">
 					<p>
 						{{ card.race }}
 					</p>
@@ -75,9 +75,8 @@
 					</p>
 				</div>
 				<div class="row col-12">
-					<p>Description:
-						{{ card.description }}
-					</p>
+					<p>Description: 
+					<p class="clear-left">{{ card.description  | replace({'----------------------------------------': ' ', '[': "", ']': "\n"})| nl2br }}</p></p>
 				</div>
 				<div class="row col-12">
 					<p>Price on Cardmarket:
