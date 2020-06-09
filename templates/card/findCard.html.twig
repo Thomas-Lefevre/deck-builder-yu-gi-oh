@@ -2,86 +2,91 @@
 
 
 {% block title %}
-	{{ card.nom }}
+{{ card.nom }}
 {% endblock title %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('css/findCard.css') }}">
+<link rel="stylesheet" href="{{ asset('css/findCard.css') }}">
 {% endblock stylesheets %}
 
 
 {% block body %}
 
 
-	<div class="container">
-		<div class="row col-12">
-			<div class="col-5 ">
-				<img id="imageCard" src="{{ asset(card.img) }}" alt="{{card.nom}}">
-			</div>
-			<div id="details" class="row col-7 bg-dark text-light">
-				<div class="col-6">
+<div class="container">
+	<div class="row col-12">
+		<div class="col-5">
+			<img src="{{ asset(card.img) }}" alt="{{card.nom}}">
+		</div>
+		<div class="row col-5 ml-5">
+				<div class="row col-6">
 					<p>Name:
 						{{ card.nom }}</p>
 				</div>
-				<div class="col-6">
+				<div class="row col-6">
 					<p>Level:
-						{{ card.level }}</p>
+						{{ card.level|default("has no level") }}</p>
 				</div>
-				<div class="col-4">
+				<div class="row col-4 ">
 					<p>
 						Card-type:
 						{% for cardType in card.cardTypes %}
-							{% if loop.last %}
-								and
-								{{cardType.name}}
-							{% elseif loop.first %}
-								{{cardType.name}},
-							{% else %}
-								, {{cardType.name}}
-							{% endif %}
-
-
+						{% if loop.length == 1 %}
+						{{cardType.name}}
+						{% else %}
+						{% if loop.last %}
+						and
+						{{cardType.name}}
+						{% elseif loop.first %}
+						{{cardType.name}},
+						{% else %}
+						,
+						{{cardType.name}}
+						{% endif %}
+						{% endif %}
 						{% endfor %}
 					</p>
 				</div>
-				<div class="col-4">
+				<div class="row col-4">
 					<p>
 						{{ card.attribute }}
 					</p>
 				</div>
-				<div class="col-4">
+				<div class="row col-4">
 					<p>
 						{{ card.race }}
 					</p>
 				</div>
-				<div class="col-6">
+				<div class="row col-6">
 					<p>Atk:
-						{{ card.atk|default(0)}}
+						{{ card.atk|default("has no atk")}}
 					</p>
 				</div>
-				<div class="col-6">
+				<div class="row col-6">
 					<p>Def:
-						{{ card.def|default(0) }}
+						{{ card.def|default("has no def") }}
 					</p>
 				</div>
-				<div class="col-12">
+				<div class="row col-12">
 					<p>Archetype:
-						{{ card.archetype }}
+						{{ card.archetype|default("has no archetype") }}
 					</p>
 				</div>
-				<div class="col-12">
+				<div class="row col-12">
 					<p>Description:
 						{{ card.description }}
 					</p>
 				</div>
-				<div class="col-12">
+				<div class="row col-12">
 					<p>Price on Cardmarket:
+						{% if card.price == 0 %}
+						this card does not exist in TCG
+						{% else %}
 						{{ card.price }}
+						{% endif %}
 					</p>
 				</div>
-			</div>
 		</div>
 	</div>
-
-
+</div>
 {% endblock body %}
