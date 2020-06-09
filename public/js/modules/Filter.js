@@ -1,6 +1,6 @@
 /**
  * @property {HTMLElement} content
- * @property {HTMLElement} form
+ * @property {HTMLFormElement} form
  */
 
 export default class Filter {
@@ -20,25 +20,37 @@ export default class Filter {
      * Ajoute les comportements aux différents elements
      */
     bindEvents() {
-        this.form.querySelectorAll('option').forEach(a => {
-            a.addEventListener('click', e => {
+        this.form.querySelectorAll('input[type=text]').forEach(input => {
+            input.addEventListener('keyup', this.loadForm.bind(this))
+        })
 
-                console.log('change');
-            })
+        this.form.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', this.loadForm.bind(this))
         })
     }
-
+    async loadForm (){
+        const data = new FormData(this.form)
+        const url = new URL( this.form.getAttribute('action')|| window.location.href)
+        const params = new URLSearchParams()
+        data.forEach((value, key)=> {
+            params.append(key, value)
+        })
+        return this.loadurl(url.pathname +'?'+ params.toString())
+    }
     async loadurl(url) {
-        const response = await fetch(url, {
+        // const pour éviter de tomber sur une page en json qui va être mis en cache par les navigateurs
+        const ajaxUrl = url + '&ajax=1'
+        const response = await fetch(ajaxUrl, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        if (response.status >= 200 && response.status < 300){
+        if (response.status >= 200 && response.status < 300) {
             const data = await response.json()
             this.content.innerHTML = data.content
+            history.replaceState({}, '', url)
         }
-        else{
+        else {
             console.log(response);
         }
     }
