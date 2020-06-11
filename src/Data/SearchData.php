@@ -46,4 +46,8 @@ class SearchData
      * @var string
      */
     public $order = '';
+    /**
+     * @var int
+     */
+    public $limit = 50;
 }

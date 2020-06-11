@@ -1,6 +1,5 @@
 /**
  * @property {HTMLElement} content
- * @property {HTMLElement} body
  * @property {HTMLFormElement} form
  */
 
@@ -15,8 +14,7 @@ export default class Filter {
         }
         this.content = element.querySelector('.js-filter-content');
         this.form = element.querySelector('.js-filter-form');
-        this.body = element.querySelector('body');
-        this.limit = 20;
+        this.limit = 50;
         this.bindEvents();
     }
     /**
@@ -30,26 +28,24 @@ export default class Filter {
         this.form.querySelectorAll('select').forEach(select => {
             select.addEventListener('change', this.loadForm.bind(this));
         })
-        this.body.addEventListener('scroll', function () {
-            if (body.scrollTop + body.clientHeight >= body.scrollHeight) {
-                this.limit += 20;
-                this.loadForm.bind(this.limit);
+        window.addEventListener('scroll', e => {
+            if ((document.documentElement.scrollTop) >= (document.body.offsetHeight - window.innerHeight -800)) {
+                this.limit += 50;
+                console.log(this.limit);
+                this.loadForm(this.limit);
             }
-
+            e.preventDefault();
         })
-
-
-
-
     }
     async loadForm() {
         const data = new FormData(this.form)
+        console.log(data);
         const url = new URL(this.form.getAttribute('action') || window.location.href)
         const params = new URLSearchParams()
         data.forEach((value, key) => {
             params.append(key, value)
         })
-        return this.loadurl(url.pathname + '?' + params.toString())
+        return this.loadurl(url.pathname + '?'+'limit='+this.limit+'&' + params.toString())
     }
     async loadurl(url) {
         // const pour éviter de tomber sur une page en json qui va être mis en cache par les navigateurs

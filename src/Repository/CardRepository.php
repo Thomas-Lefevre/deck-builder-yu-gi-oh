@@ -28,7 +28,8 @@ class CardRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('c')
             ->select('c', 'ct')
-            ->innerJoin('c.cardTypes', 'ct');
+            ->innerJoin('c.cardTypes', 'ct')
+            ->orderBy('c.nom' , 'ASC');
 
         if (!empty($search->q)) {
             $query = $query
@@ -67,7 +68,12 @@ class CardRepository extends ServiceEntityRepository
                 ->andWhere('c.archetype = :archetype')
                 ->setParameter('archetype', $search->archetype);
         }
-        $query = $query->setMaxResults(50);
+        if (!empty($_GET['limit'])) {
+            $query = $query->setMaxResults($_GET['limit']);
+        }else{
+            $query = $query->setMaxResults(50);
+        }
+        
         return $query->getQuery()->getResult();
 
     }
