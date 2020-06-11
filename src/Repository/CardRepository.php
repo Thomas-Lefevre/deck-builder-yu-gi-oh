@@ -67,7 +67,7 @@ class CardRepository extends ServiceEntityRepository
                 ->andWhere('c.archetype = :archetype')
                 ->setParameter('archetype', $search->archetype);
         }
-        
+        $query = $query->setMaxResults(50);
         return $query->getQuery()->getResult();
 
     }

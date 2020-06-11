@@ -32,17 +32,14 @@
 						Card-type:
 						{% for cardType in card.cardTypes %}
 							{% if loop.length == 1 %}
-								{{cardType.name}}
+								{{cardType.name}}.
 							{% else %}
-
 								{% if loop.last %}
-									and
-									{{cardType.name}}
+									and {{cardType.name}}.
 								{% elseif loop.first %}
-									{{cardType.name}},
-								{% else %}
-									,
 									{{cardType.name}}
+								{% else %}
+									,{{cardType.name}}
 								{% endif %}
 							{% endif %}
 
@@ -75,8 +72,8 @@
 					</p>
 				</div>
 				<div class="row col-12">
-					<p>Description: 
-					<p class="clear-left">{{ card.description  | replace({'----------------------------------------': ' ', '[': "", ']': "\n"})| nl2br }}</p></p>
+					<p>Description: </p>
+					<p class="w-100">{{ card.description  | replace({'----------------------------------------': ' ', '[': "", ']': "\n"})| nl2br }}</p>
 				</div>
 				<div class="row col-12">
 					<p>Price on Cardmarket:

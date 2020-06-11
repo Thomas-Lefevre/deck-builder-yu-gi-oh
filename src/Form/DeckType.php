@@ -18,6 +18,7 @@ class DeckType extends AbstractType
             ->add('format', ChoiceType::class,[
                 'label' => false,
                 'required' => true,
+                'placeholder' => 'Deck type',
                 'choices' => [
                     'Classic' => 'Classic',
                     'Advanced' => 'Advanced',

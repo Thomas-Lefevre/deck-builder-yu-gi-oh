@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Deck;
 use App\Form\DeckType;
+use App\Data\SearchData;
+use App\Form\SearchType;
+use App\Repository\CardRepository;
 use App\Repository\DeckRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin/deck")
@@ -28,11 +32,19 @@ class DeckController extends AbstractController
     /**
      * @Route("/new", name="deck_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(CardRepository $cardRepository,Request $request): Response
     {
         $deck = new Deck();
-        $form = $this->createForm(DeckType::class, $deck);
+        $data = new SearchData();
+        $newDeckForm =  $this->createForm(DeckType::class, $deck);
+        $form = $this->createForm(SearchType::class, $data);
         $form->handleRequest($request);
+        $cards = $cardRepository -> findSearch($data);
+        if ($request->get('ajax')){
+            return new JsonResponse([
+                'content'=>$this->renderView('deck/_cards.html.twig',['cards'=> $cards])
+            ]);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -43,8 +55,10 @@ class DeckController extends AbstractController
         }
 
         return $this->render('deck/new.html.twig', [
+            'cards' => $cards,
             'deck' => $deck,
-            'newDeckForm' => $form->createView(),
+            'form' => $form->createView(),
+            'newDeckForm' => $newDeckForm->createView(),
         ]);
     }
 
