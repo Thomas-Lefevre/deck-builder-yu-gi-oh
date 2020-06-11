@@ -26,7 +26,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/user/new", name="user_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,17 +49,19 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/user/{id}", name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
+        // return new JsonResponse(['redirect' => $this->generateUrl("user_show", ['id' => $id], UrlGeneratorInterface::ABSOLUTE_URL)], Response::HTTP_OK);
+
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -79,7 +81,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {

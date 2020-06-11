@@ -51,7 +51,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $avatar;
+    private $avatar = "img/avatar/169719.png";
 
     /**
      * @ORM\ManyToMany(targetEntity=Card::class)
@@ -182,6 +182,10 @@ class User implements UserInterface
 
     public function getAvatar(): ?string
     {
+        $avatar = $this->avatar;
+        // // guarantee every user at least has ROLE_USER
+        // $avatar= "{{ asset('img/avatar/169719.png') }}";
+
         return $this->avatar;
     }
 
