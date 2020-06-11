@@ -2,7 +2,7 @@ var callBackGetNom = function (data) {
     console.log("donnees api", data);
     // var element = document.getElementById("zone_carte");
     // element.innerHTML = "description de la carte :" + data.data[0].desc;
-    insertCard(data.data[0])
+    insertCard(data.data)
     // alert("description :" + data.desc)
 }
 
@@ -27,7 +27,7 @@ var callBackGetEdition = function (data) {
 }
 function buttonEditionGET() {
     var limiteSetName = document.getElementById("limiteSetName").value;
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?set=" + limiteSetName + "&num=15&offset=25"
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?set=" + limiteSetName
     $.get(url, callBackGetEdition).fail(function () {
         alert("error");
     })
@@ -58,7 +58,7 @@ var callBackGetLevel = function (data) {
     insertCardMultiple(data.data);
 }
 function buttonLevelGET() {
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?level=4&attribute=water&sort=atk&num=8&offset=0"
+    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
     $.get(url, callBackGetLevel).fail(function () {
         alert("error");
     })
@@ -70,6 +70,8 @@ var callBackGetBan = function (data) {
     console.log("donnees api", data);
     var Ban = document.getElementById("zone_ban");
     Ban.innerHTML = "Carte bannies de niveau 4:" + JSON.stringify(data.data);
+    insertCardMultiple(data.data);
+
 }
 function buttonBanGET() {
     var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?banlist=tcg&level=4&sort=name&num=5&offset=0"
@@ -115,6 +117,8 @@ var callBackGetStaple = function (data) {
     console.log("donnees api", data);
     var staple = document.getElementById("zone_staple");
     staple.innerHTML = "Carte staples:" + JSON.stringify(data.data);
+    insertCardMultiple(data.data);
+
 }
 function buttonStapleGET() {
     var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?staple=yes&num=5&offset=0"

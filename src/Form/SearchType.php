@@ -220,7 +220,7 @@ class SearchType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('Filter', SubmitType::class)
+            
             ;
     }
     public function configureOptions(OptionsResolver $resolver)
