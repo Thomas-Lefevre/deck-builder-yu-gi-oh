@@ -22,14 +22,13 @@ class CardManager
         $dataLength = \count($data);
         // count($data) sert ici a s'arreter quand il a lu loutes les valeurs du tableau de données que l'api nous donne
         for ($i = 0; $i < $dataLength; $i++) {
-            # code...
-            
-     
-            //if qui nous sert a voir si la carte existe déja dans la base de donnée
-            $card = $this->em->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']]);
-            if ($card) {
-                continue;
-            }
+                # code...
+
+                //if qui nous sert a voir si la carte existe déja dans la base de donnée
+                $card = $this->em->getRepository(Card::class)->findOneBy(["id_api" => $data[$i]['id']]);
+                if ($card) {
+                    continue;
+                }
                 //si elle existe pas il faut la créer
 
                 $card = new Card();
@@ -101,30 +100,40 @@ class CardManager
                 if (!empty($data[$i]['linkval'])) {
                     $card->setLinkVal($data[$i]['linkval']);
                 }
+
                 $url = $data[$i]['card_images'][0]['image_url'];
-                $img = "img/card/" . $data[$i]['id'] . ".jpeg";
-                // Enregistrer l'image normale
-                file_put_contents($img, file_get_contents($url));
-                $card->setImg($img);
                 $url_minia = $data[$i]['card_images'][0]['image_url_small'];
-                $img_minia = "img/card_minia/" . $data[$i]['id'] . "_small.jpeg";
-                // Enregistrer l'image miniature
-                file_put_contents($img_minia, file_get_contents($url_minia));
+
+                // Enregistrer l'image normale
+                try {
+
+                    $img = "img/card/" . $data[$i]['id'] . ".jpeg";
+                    file_put_contents($img, file_get_contents($url));
+
+                    // Enregistrer l'image miniature
+                    $img_minia = "img/card_minia/" . $data[$i]['id'] . "_small.jpeg";
+                    file_put_contents($img_minia, file_get_contents($url_minia));
+
+                } catch (\Exception $e) {
+                    $img = 'img/card/defaultCard.jpg';
+                    $img_minia = 'img/card_minia/defaultCardMinia.jpg';
+                }
+                $card->setImg($img);
                 $card->setImgMinia($img_minia);
                 //persist
                 $this->em->persist($card);
-                
-            
-        }
 
-        //flush
-        
+            
+
+            //flush
+
             $this->em->flush();
-        if($dataLength == 1){
+        }
+        if ($dataLength == 1) {
             $id = $card->getIdApi();
             return $id;
         }
-        
+
     }
 
 }

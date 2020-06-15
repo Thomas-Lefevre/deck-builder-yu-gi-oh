@@ -29,9 +29,13 @@ export default class Filter {
             select.addEventListener('change', this.loadForm.bind(this));
         })
         window.addEventListener('scroll', e => {
-            if ((document.documentElement.scrollTop) >= (document.body.offsetHeight - window.innerHeight -800)) {
-                this.limit += 50;
-                console.log(this.limit);
+            console.log(document.documentElement.scrollTop);
+            console.log(document.body.offsetHeight - window.innerHeight);
+            console.log(this.limit);
+            if ((document.documentElement.scrollTop) >= (document.body.offsetHeight - window.innerHeight )) {
+                this.limit += 100;
+                console.log(document.documentElement.scrollTop);
+                console.log(document.body.offsetHeight - window.innerHeight);
                 this.loadForm(this.limit);
             }
             e.preventDefault();
@@ -39,16 +43,17 @@ export default class Filter {
     }
     async loadForm() {
         const data = new FormData(this.form)
-        console.log(data);
         const url = new URL(this.form.getAttribute('action') || window.location.href)
         const params = new URLSearchParams()
         data.forEach((value, key) => {
             params.append(key, value)
         })
-        return this.loadurl(url.pathname + '?'+'limit='+this.limit+'&' + params.toString())
+        
+        return this.loadurl(url.pathname + '?' + 'limit=' + this.limit + '&' + params.toString())
     }
     async loadurl(url) {
         // const pour éviter de tomber sur une page en json qui va être mis en cache par les navigateurs
+        
         const ajaxUrl = url + '&ajax=1'
         const response = await fetch(ajaxUrl, {
             headers: {

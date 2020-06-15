@@ -58,7 +58,7 @@ var callBackGetLevel = function (data) {
     insertCardMultiple(data.data);
 }
 function buttonLevelGET() {
-    var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
+    var url = 'json/BDD.json'
     $.get(url, callBackGetLevel).fail(function () {
         alert("error");
     })
