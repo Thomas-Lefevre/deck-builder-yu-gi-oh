@@ -37,9 +37,9 @@
 								<a class="nav-link text-center" href="#">My deck</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link disable text-center " href="#">Hi
+								<a class="nav-link disable text-center " href="{{ path('user_show', {'id': app.user.id} ) }}">Hi
 									{{ app.user.username }}
-									<img src=" {{app.user.avatar}} " width="30px"></a>
+									<img src=" {{asset(app.user.avatar)}} " width="30px"></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-center" href="{{ path('logout') }}">Log Out</a>

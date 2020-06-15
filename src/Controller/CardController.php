@@ -33,7 +33,7 @@ class CardController extends AbstractController
         return $this->render('card/card.html.twig', [
             'cards' => $cards,
             'form' => $form->createView(),
-0        ]);
+        ]);
     }
     /**
      * @Route("/{id_api}", name="findCard", methods={"GET"})
