@@ -1,14 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Deck{% endblock %}
+{% block title %}Deck Edit
+{% endblock title %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/editDeck.css') }}">
+{% endblock stylesheets %}
 
 {% block body %}
 
-    <h1>Edit Deck</h1>
 
-    {{ include('deck/_form.html.twig', {'button_label': 'Update'}) }}
+	<div class="container-fluid m-0 p-0">
 
-    <a href="{{ path('deck_index') }}">back to list</a>
+		<div class="row col-12 m-0 p-0">
 
-    {{ include('deck/_delete_form.html.twig') }}
-{% endblock %}
+
+			<div class="row col-9 align-items-center js-filter">
+
+
+				<div class="col-12 cards ">
+					<div>
+						{{form_start(form, {attr: {class: 'js-filter-form' }}) }}
+						{{ form_row(newDeckForm.format,   {attr: {class: 'inline' }})}}
+						{{form_end(form)}}
+
+					</div>
+					<div class="grid js-filter-content ">
+						{% include 'deck/_cards.html.twig' %}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-3 mr-auto ml-auto mt-2 p-0">
+				{{ form_row(newDeckForm.type) }}
+
+				{{ form(newDeckForm.nom) }}
+				<div>
+						{% include 'deck/_deck.html.twig' %}
+				</div>
+
+
+				{{ include('deck/_form.html.twig', {'button_label': 'Update'}) }}
+
+				<a href="{{ path('deck_index') }}">back to list</a>
+
+				{{ include('deck/_delete_form.html.twig') }}
+
+
+			</div>
+		</div>
+	</div>
+{% endblock body %}

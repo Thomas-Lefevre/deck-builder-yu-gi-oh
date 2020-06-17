@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DeckRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,17 +65,27 @@ class Deck
      */
     private $id_user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DeckCard::class, mappedBy="deck", orphanRemoval=true)
+     */
+    private $deckCards;
+
+    public function __construct()
+    {
+        $this->deckCards = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFormat(): ?array
+    public function getFormat(): ?string
     {
         return $this->format;
     }
 
-    public function setFormat(array $format): self
+    public function setFormat(string $format): self
     {
         $this->format = $format;
 
@@ -175,4 +187,36 @@ class Deck
 
         return $this;
     }
+
+    /**
+     * @return Collection|DeckCard[]
+     */
+    public function getDeckCards(): Collection
+    {
+        return $this->deckCards;
+    }
+
+    public function addDeckCard(DeckCard $deckCard): self
+    {
+        if (!$this->deckCards->contains($deckCard)) {
+            $this->deckCards[] = $deckCard;
+            $deckCard->setDeck($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeckCard(DeckCard $deckCard): self
+    {
+        if ($this->deckCards->contains($deckCard)) {
+            $this->deckCards->removeElement($deckCard);
+            // set the owning side to null (unless already changed)
+            if ($deckCard->getDeck() === $this) {
+                $deckCard->setDeck(null);
+            }
+        }
+
+        return $this;
+    }
+    
 }
