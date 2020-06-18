@@ -34,7 +34,8 @@
                 <td>{{ deck.auteur }}</td>
                 <td>
                     <a href="{{ path('deck_show', {'id': deck.id}) }}">show</a>
-                    {# <a href="{{ path('deck_edit', {'id': deck.id}) }}">edit</a> #}
+                    <a href="{{ path('deck_edit', {'id': deck.id}) }}">edit</a>
+                    <a href="{{ path('deck_delete', {'id': deck.id}) }}">delete</a>
                 </td>
             </tr>
         {% else %}
