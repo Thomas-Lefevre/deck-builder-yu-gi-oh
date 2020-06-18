@@ -22,19 +22,16 @@ class DeckRepository extends ServiceEntityRepository
     // /**
     //  * @return Deck[] Returns an array of Deck objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function cardsInDeck()
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this
+            ->createQueryBuilder('c')
+            ->select('c', 'd', 'dc')
+            ->innerJoin('c.deckCard', 'dc')
+            ->innerJoin('dc.deck', 'd')
+            ->orderBy('c.nom' , 'ASC');
+        return $query->getQuery()->getResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Deck

@@ -29,13 +29,9 @@ export default class Filter {
             select.addEventListener('change', this.loadForm.bind(this));
         })
         window.addEventListener('scroll', e => {
-            console.log(document.documentElement.scrollTop);
-            console.log(document.body.offsetHeight - window.innerHeight);
-            console.log(this.limit);
+            
             if ((document.documentElement.scrollTop) >= (document.body.offsetHeight - window.innerHeight )) {
                 this.limit += 100;
-                console.log(document.documentElement.scrollTop);
-                console.log(document.body.offsetHeight - window.innerHeight);
                 this.loadForm(this.limit);
             }
             e.preventDefault();

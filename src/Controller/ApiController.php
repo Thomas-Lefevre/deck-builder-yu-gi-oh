@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class TestAPIController extends AbstractController
+class ApiController extends AbstractController
 {
     private $cardManager;
 
@@ -20,12 +20,12 @@ class TestAPIController extends AbstractController
         $this->cardManager = $cardManager;
     }
     /**
-     * @Route("/testapi", name="testapi")
+     * @Route("api", name="api")
      */
     public function index()
     {
-        return $this->render('test_api/testAPI.html.twig', [
-            'controller_name' => 'TestAPIController',
+        return $this->render('api/api.html.twig', [
+            'controller_name' => 'ApiController',
         ]);
     }
     /**
@@ -45,6 +45,6 @@ class TestAPIController extends AbstractController
         //jsondecode permet de remettre le Json en tableau
         $data = json_decode($request->getContent(), true);
         $this->cardManager->handleInsertCards($data);
-        return $this->redirect($this->generateUrl('testapi'));
+        return $this->redirect($this->generateUrl('api'));
     }
 }

@@ -3,5 +3,9 @@
 	{% set orderBy = "nom" %}
 {% endif %}
 {% for card in cards | sort((a,b) => attribute(a,orderBy) <=> attribute(b,orderBy) )%}
-	{% include 'deck/_card.html.twig' with {card: card} only %}
+	<div class="card">
+		<a href="{{ path('card_in_deck' , {'id_card' :card.id ,'id_deck' : deck.id }) }}">
+			<img src="{{ asset(card.img)}}" alt="{{card.nom}}"class="card-img-top">
+		</a>	
+	</div>
 {% endfor %}

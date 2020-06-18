@@ -91,11 +91,6 @@ class Card
     private $link_val;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Deck::class)
-     */
-    private $deck;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $id_api;
@@ -120,10 +115,16 @@ class Card
      */
     private $cardTypes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DeckCard::class, mappedBy="card", orphanRemoval=true)
+     */
+    private $deckCards;
+
+
     public function __construct()
     {
-        $this->deck = new ArrayCollection();
         $this->cardTypes = new ArrayCollection();
+        $this->deckCards = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -299,32 +300,7 @@ class Card
         return $this;
     }
 
-    /**
-     * @return Collection|deck[]
-     */
-    public function getDeck(): Collection
-    {
-        return $this->deck;
-    }
-
-    public function addDeck(deck $deck): self
-    {
-        if (!$this->deck->contains($deck)) {
-            $this->deck[] = $deck;
-        }
-
-        return $this;
-    }
-
-    public function removeDeck(deck $deck): self
-    {
-        if ($this->deck->contains($deck)) {
-            $this->deck->removeElement($deck);
-        }
-
-        return $this;
-    }
-
+   
     public function getIdApi(): ?int
     {
         return $this->id_api;
@@ -400,5 +376,38 @@ class Card
 
         return $this;
     }
+
+    /**
+     * @return Collection|DeckCard[]
+     */
+    public function getDeckCards(): Collection
+    {
+        return $this->deckCards;
+    }
+
+    public function addDeckCard(DeckCard $deckCard): self
+    {
+        if (!$this->deckCards->contains($deckCard)) {
+            $this->deckCards[] = $deckCard;
+            $deckCard->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeckCard(DeckCard $deckCard): self
+    {
+        if ($this->deckCards->contains($deckCard)) {
+            $this->deckCards->removeElement($deckCard);
+            // set the owning side to null (unless already changed)
+            if ($deckCard->getCard() === $this) {
+                $deckCard->setCard(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 }
