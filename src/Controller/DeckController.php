@@ -81,7 +81,7 @@ class DeckController extends AbstractController
         $cards = $cardRepository->findSearch($data);
         if ($request->get('ajax')) {
             return new JsonResponse([
-                'content' => $this->renderView('deck/_cards.html.twig', ['cards' => $cards]),
+                'content' => $this->renderView('deck/_cards.html.twig', ['cards' => $cards , 'deck'=> $deck]),
             ]);
         }
         if ($form->isSubmitted() && $form->isValid()) {
