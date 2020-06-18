@@ -1,7 +1,7 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('css/_form.css') }}">
 {% endblock stylesheets %}
-
+{{ form_start(form) }}
 <div class="container-fluid text-white">
     <div class="row col-12">
         <div class="col6">
@@ -22,3 +22,4 @@
         </div>
     </div>
 </div>
+{{ form_end(form) }}
