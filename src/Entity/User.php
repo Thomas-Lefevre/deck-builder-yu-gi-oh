@@ -183,8 +183,6 @@ class User implements UserInterface
     public function getAvatar(): ?string
     {
         $avatar = $this->avatar;
-        // // guarantee every user at least has ROLE_USER
-        // $avatar= "{{ asset('img/avatar/169719.png') }}";
 
         return $this->avatar;
     }

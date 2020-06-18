@@ -14,66 +14,69 @@
 
 
 <div class="container-fluid">
-	<div class="row col-12">
+	<div class="row col-12  font-weight-bold">
 		<div class="col-3">
 			<img src="{{ asset(card.img) }}" alt="{{card.nom}}">
 		</div>
-		<div class="row col-5 ml-5">
-				<div class="row col-8">
-					<p>Name:
-						{{ card.nom }}</p>
-				</div>
-				<div class="row col-4">
-					<p>Level:
-						{{ card.level|default("has no level") }}</p>
-				</div>
-				<div class="row col-7 ">
-					<p>
-						Card-type:
-						{% for cardType in card.cardTypes %}
-							{% if loop.length == 1 %}
-								{{cardType.name}}.
-							{% else %}
-								{% if loop.last %}
-									and {{cardType.name}}.
-								{% elseif loop.first %}
-									{{cardType.name}}
-								{% else %}
-									,{{cardType.name}}
-								{% endif %}
-							{% endif %}
+		<div id="fondCouleur" class="row col-5 ml-5">
+			<div class="row col-8">
+				<p>Name:
+					{{ card.nom }}</p>
+			</div>
+			<div class="row col-4">
+				<p>Level:
+					{{ card.level|default("has no level") }}</p>
+			</div>
+			<div class="row col-7 ">
+				<p>
+					Card-type:
+					{% for cardType in card.cardTypes %}
+					{% if loop.length == 1 %}
+					{{cardType.name}}.
+					{% else %}
+					{% if loop.last %}
+					and {{cardType.name}}.
+					{% elseif loop.first %}
+					{{cardType.name}}
+					{% else %}
+					,{{cardType.name}}
+					{% endif %}
+					{% endif %}
 
-						{% endfor %}
-					</p>
-				</div>
-				<div class="row col-3">
-					<p>
-						{{ card.attribute }}
-					</p>
-				</div>
-				<div class="row col-2">
-					<p>
-						{{ card.race }}
-					</p>
-				</div>
-				<div class="row col-6">
-					<p>Atk:
-						{{ card.atk|default("has no atk")}}
-					</p>
-				</div>
-				<div class="row col-6">
-					<p>Def:
-						{{ card.def|default("has no def") }}
-					</p>
-				</div>
-				<div class="row col-12">
-					<p>Archetype:
-						{{ card.archetype|default("has no archetype") }}
-					</p>
-				</div>
+					{% endfor %}
+				</p>
+			</div>
+			<div class="row col-3">
+				<p>
+					{{ card.attribute }}
+				</p>
+			</div>
+			<div class="row col-2">
+				<p>
+					{{ card.race }}
+				</p>
+			</div>
+			<div class="row col-6">
+				<p>Atk:
+					{{ card.atk|default("has no atk")}}
+				</p>
+			</div>
+			<div class="row col-6">
+				<p>Def:
+					{{ card.def|default("has no def") }}
+				</p>
+			</div>
+			<div class="row col-12">
+				<p>Archetype:
+					{{ card.archetype|default("has no archetype") }}
+				</p>
+			</div>
+			<div id="fond">
 				<div class="row col-12">
 					<p>Description: </p>
-					<p class="w-100">{{ card.description  | replace({'----------------------------------------': ' ', '[': "", ']': "\n"})| nl2br }}</p>
+					<p class="w-100">
+						{{ card.description  | replace({'----------------------------------------': ' ', '[': "", ']': "\n"})| nl2br }}
+					</p>
 				</div>
 				<div class="row col-12">
 					<p>Price on Cardmarket:
@@ -84,6 +87,7 @@
 						{% endif %}
 					</p>
 				</div>
+			</div>
 		</div>
 	</div>
 </div>

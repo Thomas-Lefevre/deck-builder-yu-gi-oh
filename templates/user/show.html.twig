@@ -1,42 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+{% endblock stylesheets %}
+
+
+{% block title %}Profile of {{ user.username }} {% endblock %}
 
 {% block body %}
-    <h1>User</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Avatar</th>
-                <td>{{ user.avatar }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+<h1 class="username text-white font-weight-bold"> {{ user.username }} </h1>
+<div class="container-fluid text-white">
+    <div class="row col-12">
+        <div class="col6">
+            <img src="{{asset(app.user.avatar)}}" alt="avatar">
+        </div>
+        <div class="row col-6 ml-5">
+            <div class="fond row col-12">
+                <p id="centreEmail" class="font-weight-bold">Email: <br> {{ user.email }}</p>
+            </div>
+            <div class="fond row col-12">
+                <p id="centreUsername" class="font-weight-bold">Username: <br> {{ user.username }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="buttonEdit">
+    <button type="button" class="btn btn-secondary font-weight-bold"> <a class="text-white"
+            href="{{ path('user_edit', {'id': user.id}) }}">EDIT</a> </button>
+</div>
 {% endblock %}

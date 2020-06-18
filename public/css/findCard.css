@@ -2,3 +2,19 @@
     margin-top: 15vh;
     margin-left: 15vw;
 }
+body{
+    background-image: url(../img/wallpaper/cropped-1920-1080-875040.jpg);
+}
+#fondCouleur{
+    background-color: rgb(245, 244, 242);
+    border-radius: 5%;
+    padding-top: 10px;
+    opacity: 70%;
+}
+/* #fond{
+    background-image: url(../img/bas_carte.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-left: 2vw;
+    padding-top: 2vh;
+} */

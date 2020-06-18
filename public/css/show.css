@@ -1,0 +1,32 @@
+.container-fluid{
+    margin-top: 15vh;
+    margin-left: 15vw;
+}
+body{
+    background-image: url(../img/wallpaper/cropped-1920-1080-778906.jpg);
+}
+.fond{
+    background-image: url(../img/bas_carte.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-align: center;
+    font-size: 2em;
+    opacity: 90%;
+}
+#centreUsername{
+    padding-left: 15vw;
+    padding-top: 8vh;
+}
+#centreEmail{
+    padding-left: 9vw;
+    padding-top: 8vh;
+}
+.username{
+    display: flex;
+    justify-content: center;
+}
+#buttonEdit{
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
+}

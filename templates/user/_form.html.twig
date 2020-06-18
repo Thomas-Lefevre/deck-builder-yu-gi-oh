@@ -1,4 +1,24 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/_form.css') }}">
+{% endblock stylesheets %}
+
+<div class="container-fluid text-white">
+    <div class="row col-12">
+        <div class="col6">
+            <img src="{{asset(app.user.avatar)}}" alt="avatar">
+        </div>
+        <div class="row col-6 ml-5">
+            <div class="fond row col-12">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="fond row col-12">
+                {{ form_row(form.username) }}
+            </div>
+            <div class="fond row col-12">
+                {{ form_row(form.avatar) }}
+            </div>
+                {{ form_row(form.Update)}}
+
+        </div>
+    </div>
+</div>
