@@ -2,12 +2,13 @@
 <link rel="stylesheet" href="{{ asset('css/_formUser.css') }}">
 {% endblock stylesheets %}
 
-<div class="container-fluid text-white">
+{{ form_start(form) }}
+<div class="container-fluid">
     <div class="row col-12">
         <div class="col6">
             <img src="{{asset(app.user.avatar)}}" alt="avatar">
         </div>
-        <div class="row col-6 ml-5">
+        <div id="fond" class="row col-2 ml-5">
             <div class="fond row col-12">
                 {{ form_row(form.email) }}
             </div>
@@ -22,3 +23,4 @@
         </div>
     </div>
 </div>
+{{ form_end(form) }}
