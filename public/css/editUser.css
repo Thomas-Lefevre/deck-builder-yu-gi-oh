@@ -1,0 +1,8 @@
+body{
+    background-image: url(../img/wallpaper/yu-gi-oh_banner.jpg);
+}
+h1{
+    color: white;
+    justify-content: center;
+    display: flex;
+}

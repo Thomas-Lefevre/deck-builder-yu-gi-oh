@@ -1,4 +1,10 @@
 .container-fluid{
     margin-top: 15vh;
-    margin-left: 15vw;
+    margin-left: 25vw;
+}
+#fond{
+    background-color: rgb(245, 244, 242);
+    border-radius: 5%;
+    padding-top: 10px;
+    opacity: 70%;
 }
