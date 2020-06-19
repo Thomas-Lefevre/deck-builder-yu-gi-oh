@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminDeckController extends AbstractController
 {
     /**
-     * @Route("/admin/deck", name="admin_deck")
+     * @Route("/deck", name="admin_deck")
      */
     public function index(DeckRepository $deckRepository)
     {
