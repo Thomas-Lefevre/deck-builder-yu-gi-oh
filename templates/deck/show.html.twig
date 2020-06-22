@@ -19,10 +19,10 @@
                 <th>Nom</th>
                 <td>{{ deck.nom }}</td>
             </tr>
-            <tr>
+            {# <tr>
                 <th>Note</th>
                 <td>{{ deck.note }}</td>
-            </tr>
+            </tr> #}
             <tr>
                 <th>Prix</th>
                 <td>{{ deck.prix }}</td>
@@ -46,7 +46,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('deck_index') }}">back to list</a>
+    <a href="{{ path('all_deck') }}">back to list</a>
+
+    <a href="{{ path('my_deck') }}">back to my list</a>
 
     <a href="{{ path('deck_edit', {'id': deck.id}) }}">edit</a>
 

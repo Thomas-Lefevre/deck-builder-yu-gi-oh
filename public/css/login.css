@@ -1,0 +1,18 @@
+body {
+    background-image: url(../img/wallpaper/yugioh-1.jpg);
+    background-repeat: no-repeat;
+    background-size: auto auto;
+}
+
+form {
+    text-align: center;
+}
+
+#bar1 {
+    width: 50%;
+    border: 2px black;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

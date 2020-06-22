@@ -4,7 +4,7 @@
 {% endif %}
 {% for card in cards | sort((a,b) => attribute(a,orderBy) <=> attribute(b,orderBy) )%}
 	<div class="card">
-		<a href="{{ path('card_in_deck' , {'id_card' :card.id ,'id_deck' : deck.id }) }}">
+		<a href="{{ path('insert_card_in_deck' , {'id_card' :card.id ,'id_deck' : deck.id }) }}">
 			<img src="{{ asset(card.img)}}" alt="{{card.nom}}"class="card-img-top">
 		</a>	
 	</div>
