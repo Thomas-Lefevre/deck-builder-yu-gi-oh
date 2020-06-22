@@ -10,6 +10,7 @@ use App\Entity\DeckCard;
 use App\Form\SearchType;
 use App\Repository\CardRepository;
 use App\Repository\DeckRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,12 +28,29 @@ class DeckController extends AbstractController
     /**
      * @Route("/", name="deck_index", methods={"GET"})
      */
-    public function index(DeckRepository $deckRepository): Response
+
+    public function index(Request $request, PaginatorInterface $paginator) // Nous ajoutons les paramètres requis
     {
+        // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
+        $donnees = $this->getDoctrine()->getRepository(Deck::class)->findBy([],['id' => 'desc']);
+
+        $deck = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            12 // Nombre de résultats par page
+        );
+        
         return $this->render('deck/index.html.twig', [
-            'decks' => $deckRepository->findAll(),
+            'deck' => $deck,
         ]);
     }
+
+    // public function index(DeckRepository $deckRepository): Response
+    // {
+    //     return $this->render('deck/index.html.twig', [
+    //         'decks' => $deckRepository->findAll(),
+    //     ]);
+    // }
 
     /**
      * @Route("/new", name="deck_new", methods={"GET","POST"})
