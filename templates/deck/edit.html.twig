@@ -20,7 +20,6 @@
 				<div class="col-12 cards ">
 					<div>
 						{{form_start(form, {attr: {class: 'js-filter-form' }}) }}
-						{{ form_row(newDeckForm.format,   {attr: {class: 'inline' }})}}
 						{{form_end(form)}}
 
 					</div>
@@ -31,17 +30,12 @@
 			</div>
 
 			<div class="col-12 col-md-3 mr-auto ml-auto mt-2 p-0">
-				{{ form_row(newDeckForm.type) }}
-
-				{{ form(newDeckForm.nom) }}
-				<div>
-						{% include 'deck/_deck.html.twig' %}
-				</div>
-
-
 				{{ include('deck/_form.html.twig', {'button_label': 'Update'}) }}
+				
 
-				<a href="{{ path('deck_index') }}">back to list</a>
+
+				
+				<a href="{{ path('my_deck') }}">back to list</a>
 
 				{{ include('deck/_delete_form.html.twig') }}
 

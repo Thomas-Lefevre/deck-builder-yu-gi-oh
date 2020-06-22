@@ -32,13 +32,10 @@
 					</div>
 				</div>
 				<div class="card mt-3" style="width: 100%">
-					<h5 class="card-title text-center">Card of the day!</h5>
-					<img class="card-img-top" src="{{ asset('img/card/54082269.jpeg') }}"    alt="ca marche pas">
-					<div class="card-body">
-
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
+					<h5 class="card-title text-center">Random Card !</h5>
+					<a href="{{ path('findCard' , {'id_api' :card[0].idApi }) }}">
+						<img class="card-img-top" src="{{ card[0].img }}"    alt="{{ card[0].nom }}">
+					</a>
 				</div>
 			</div>
 		</div>

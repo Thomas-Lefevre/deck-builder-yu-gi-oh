@@ -1,6 +1,11 @@
-{% for card in deck %}
-	<div class="card">
-    <img src="{{ asset(card.img)}}" alt="{{card.nom}}"class="card-img-top"></a>
-    
-    </div>
+{% for deckCard in deck.deckCards %}
+    {% if deckCard.nbr > 0 %}
+        {% for i in 1..deckCard.nbr %}
+            <div>
+                <a href="{{ path('remove_card_in_deck' , {'id_card' :deckCard.card.id ,'id_deck' : deckCard.deck.id }) }}">
+                    {{deckCard.card.nom}}
+                </a> 
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endfor %}

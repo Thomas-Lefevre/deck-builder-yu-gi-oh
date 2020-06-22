@@ -1,4 +1,9 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_start(newDeckForm) }}
+        {{ form_row(newDeckForm.nom)}}
+        {{ form_row(newDeckForm.format)}}
+        {{ form_row(newDeckForm.type)}}
+        <div>
+			{% include 'deck/_deck.html.twig' %}
+		</div>
+        {{ form_row(newDeckForm.Update)}}
+{{ form_end(newDeckForm) }}

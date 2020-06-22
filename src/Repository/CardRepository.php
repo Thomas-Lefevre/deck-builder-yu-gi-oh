@@ -6,6 +6,7 @@ use App\Data\SearchData;
 use App\Entity\Card;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use DoctrineExtensions\Query\Mysql\Rand;
 
 /**
  * @method Card|null find($id, $lockMode = null, $lockVersion = null)
@@ -76,5 +77,18 @@ class CardRepository extends ServiceEntityRepository
         
         return $query->getQuery()->getResult();
 
+    }
+    /**
+     * @return Card
+     */
+    
+    public function findAlea()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

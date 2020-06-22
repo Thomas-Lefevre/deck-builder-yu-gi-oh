@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DeckType extends AbstractType
 {
@@ -58,6 +59,7 @@ class DeckType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('Update',SubmitType::class);
         ;
     }
 

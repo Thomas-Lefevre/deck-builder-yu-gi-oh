@@ -23,7 +23,7 @@ class CardTypeRepository extends ServiceEntityRepository
     //  * @return CardType[] Returns an array of CardType objects
     //  */
     
-    public function findByExampleField($value)
+    /* public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
@@ -33,7 +33,7 @@ class CardTypeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-    }
+    } */
    
 
     /*

@@ -19,29 +19,29 @@ class DeckRepository extends ServiceEntityRepository
         parent::__construct($registry, Deck::class);
     }
 
-    // /**
-    //  * @return Deck[] Returns an array of Deck objects
-    //  */
-    public function cardsInDeck()
+     /**
+     * @return Deck[] Returns an array of Deck objects
+     */
+    public function cardsInDeck($idDeck)
     {
         $query = $this
-            ->createQueryBuilder('c')
-            ->select('c', 'd', 'dc')
-            ->innerJoin('c.deckCard', 'dc')
-            ->innerJoin('dc.deck', 'd')
-            ->orderBy('c.nom' , 'ASC');
-        return $query->getQuery()->getResult();
+            ->createQueryBuilder('d')
+            ->select('SUM(dc.nbr)')
+            ->innerJoin('d.deckCards', 'dc')
+            ->andWhere('d.id = :id')
+            ->setParameter('id', $idDeck);
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     /*
-    public function findOneBySomeField($value): ?Deck
-    {
+        public function findOneBySomeField($value): ?Deck
+        {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        ->andWhere('d.exampleField = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getOneOrNullResult()
         ;
-    }
-    */
+        }
+ */
 }
