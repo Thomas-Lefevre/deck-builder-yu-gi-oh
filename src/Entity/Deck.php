@@ -30,11 +30,6 @@ class Deck
     private $nom;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $note;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $prix;
@@ -70,9 +65,15 @@ class Deck
      */
     private $deckCards;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="deck", orphanRemoval=true)
+     */
+    private $notes;
+
     public function __construct()
     {
         $this->deckCards = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,18 +101,6 @@ class Deck
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getNote(): ?int
-    {
-        return $this->note;
-    }
-
-    public function setNote(int $note): self
-    {
-        $this->note = $note;
 
         return $this;
     }
@@ -213,6 +202,37 @@ class Deck
             // set the owning side to null (unless already changed)
             if ($deckCard->getDeck() === $this) {
                 $deckCard->setDeck(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setDeck($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->contains($note)) {
+            $this->notes->removeElement($note);
+            // set the owning side to null (unless already changed)
+            if ($note->getDeck() === $this) {
+                $note->setDeck(null);
             }
         }
 

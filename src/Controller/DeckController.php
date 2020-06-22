@@ -2,21 +2,22 @@
 
 namespace App\Controller;
 
-use App\Data\SearchData;
 use App\Entity\Card;
 use App\Entity\Deck;
-use App\Entity\DeckCard;
+use App\Entity\User;
 use App\Form\DeckType;
+use App\Data\SearchData;
+use App\Entity\DeckCard;
 use App\Form\SearchType;
 use App\Repository\CardRepository;
 use App\Repository\DeckRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/deck")
@@ -38,7 +39,7 @@ class DeckController extends AbstractController
     public function myDeck(DeckRepository $deckRepository): Response
     {
         return $this->render('deck/myDeck.html.twig', [
-            'decks' => $deckRepository->findBy(["id_user"=>$this->getUser()->getId()]),
+            'decks' => $deckRepository->findBy(["id_user" => $this->getUser()->getId()]),
 
         ]);
     }
@@ -91,7 +92,7 @@ class DeckController extends AbstractController
                 'content' => $this->renderView('deck/_cards.html.twig', ['cards' => $cards, 'deck' => $deck]),
             ]);
         }
-        
+
         if ($newDeckForm->isSubmitted() && $newDeckForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -118,7 +119,7 @@ class DeckController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('deck_index');
+        return $this->redirectToRoute('my_deck');
     }
 
     /**
@@ -173,6 +174,31 @@ class DeckController extends AbstractController
             $entityManager->flush();
 
         }
+
+        return $this->redirectToRoute('deck_edit', ['id' => $deck->getId()]);
+    }
+    /**
+     * @Route("/all_deck/{id_deck}/{id_user}/{note}", name="note", methods={"GET","POST"})
+     * @ParamConverter("deck",options={"id"= "id_deck"})
+     * @ParamConverter("user",options={"id"= "id_user"})
+     */
+
+    public function note(Request $request, Deck $deck, User $user, DeckRepository $deckRepository)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $note = $entityManager->getRepository(DeckCard::class)->findOneBy(["deck" => $deck, "user" => $user]);
+        if (!$note && __GET('note')) {
+            $note = new Note();
+            if (__GET('note') === 1) {
+                $note->setNote(1);
+            }elseif (__GET('note') === 0) {
+                $note->setNote(-1);
+            }
+
+        } else {
+           
+        }
+        $entityManager->flush();
 
         return $this->redirectToRoute('deck_edit', ['id' => $deck->getId()]);
     }
