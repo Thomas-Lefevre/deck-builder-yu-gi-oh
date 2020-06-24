@@ -21,17 +21,16 @@
 				{% endfor %}
 			</div>
 			<div class="col-12 col-md-3 mr-auto ml-auto mt-2 p-0">
-				<div class="card " style="width: 100%">
-					<h5 class="card-title text-center">Deck of the week!</h5>
-
-					<img class="card-img-top" src="" alt="Card image cap">
+				<div class="card ml-auto mr-auto" style="width: 80%">
+					<h5 class="card-title text-center">Random Deck !</h5>
+					<a href="{{ path('deck_show', {'id': deck[0].id}) }}" class="ml-auto mr-auto" style="width: 90%">
+						<img class="card-img-top" src="{{deck[0].img}}" alt="{{deck[0].nom}}">
+					</a>
 					<div class="card-body">
-
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
+						<h5 class="card-text text-center">{{deck[0].nom}}</h5>
 					</div>
 				</div>
-				<div class="card mt-3" style="width: 100%">
+				<div class="card mt-3 ml-auto mr-auto" style="width: 80%">
 					<h5 class="card-title text-center">Random Card !</h5>
 					<a href="{{ path('findCard' , {'id_api' :card[0].idApi }) }}" class="ml-auto mr-auto" style="width: 90%">
 						<img class="card-img-top " src="{{ card[0].img }}"    alt="{{ card[0].nom }}" >

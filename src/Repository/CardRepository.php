@@ -29,9 +29,31 @@ class CardRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('c')
             ->select('c', 'ct')
-            ->innerJoin('c.cardTypes', 'ct')
-            ->orderBy('c.nom' , 'ASC');
-
+            ->innerJoin('c.cardTypes', 'ct');
+        if(!empty($_GET['order']) ){
+            switch ($_GET['order']) {
+                case 'atk':
+                    $query = $query->orderBy('c.atk' , 'DESC');
+                    break;
+                case 'def':
+                    $query = $query->orderBy('c.def' , 'DESC');
+                    break;
+                case 'level':
+                    $query = $query->orderBy('c.level' , 'DESC');
+                    break;
+                case 'attribute':
+                    $query = $query->orderBy('c.attribute' , 'ASC');
+                    break; 
+                case 'race':
+                    $query = $query->orderBy('c.race' , 'ASC');
+                    break; 
+                default:
+                    $query = $query->orderBy('c.nom' , 'ASC');
+                    break;
+            }
+        }else{
+            $query = $query->orderBy('c.nom' , 'ASC');
+        }
         if (!empty($search->q)) {
             $query = $query
                 ->andWhere('c.nom LIKE :q')
@@ -82,7 +104,7 @@ class CardRepository extends ServiceEntityRepository
      * @return Card
      */
     
-    public function findAlea()
+    public function findAleaCard()
     {
         return $this->createQueryBuilder('c')
             ->orderBy('RAND()')

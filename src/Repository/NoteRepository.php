@@ -18,7 +18,18 @@ class NoteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Note::class);
     }
-
+    /**
+     * @return Note[] Returns an array of Note objects
+     */
+    public function noteDeck($idDeck)
+    {
+        $query = $this
+            ->createQueryBuilder('n')
+            ->select('SUM(n.note)')
+            ->andWhere('n.deck = :deck')
+            ->setParameter('deck', $idDeck);
+        return $query->getQuery()->getSingleScalarResult();
+    }
     // /**
     //  * @return Note[] Returns an array of Note objects
     //  */

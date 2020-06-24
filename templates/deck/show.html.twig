@@ -4,7 +4,9 @@
 
 {% block body %}
     <h1>Deck</h1>
-
+    Noter ce deck : <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : 1}) }}">+</a>
+                    <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : -1}) }}">-</a>
+    {{note}}
     <table class="table">
         <tbody>
             <tr>
