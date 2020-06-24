@@ -1,6 +1,7 @@
 .container-fluid{
     margin-top: 15vh;
     margin-left: 15vw;
+    width: 85vw;
 }
 body{
     background-image: url(../img/wallpaper/cropped-1920-1080-875040.jpg);
@@ -11,10 +12,3 @@ body{
     padding-top: 10px;
     opacity: 70%;
 }
-/* #fond{
-    background-image: url(../img/bas_carte.jpg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding-left: 2vw;
-    padding-top: 2vh;
-} */

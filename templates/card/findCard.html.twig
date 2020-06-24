@@ -15,19 +15,19 @@
 
 <div class="container-fluid">
 	<div class="row col-12  font-weight-bold">
-		<div class="col-3">
+		<div class="col-4">
 			<img src="{{ asset(card.img) }}" alt="{{card.nom}}">
 		</div>
 		<div id="fondCouleur" class="row col-5 ml-5">
-			<div class="row col-8">
+			<div class="row col-8 d-flex justify-content-center align-items-center">
 				<p>Name:
 					{{ card.nom }}</p>
 			</div>
-			<div class="row col-4">
+			<div class="row col-4 d-flex justify-content-center align-items-center">
 				<p>Level:
 					{{ card.level|default("has no level") }}</p>
 			</div>
-			<div class="row col-7 ">
+			<div class="row col-7  d-flex justify-content-center align-items-center">
 				<p>
 					Card-type:
 					{% for cardType in card.cardTypes %}
@@ -46,39 +46,39 @@
 					{% endfor %}
 				</p>
 			</div>
-			<div class="row col-3">
+			<div class="row col-3 d-flex justify-content-center align-items-center">
 				<p>
 					{{ card.attribute }}
 				</p>
 			</div>
-			<div class="row col-2">
+			<div class="row col-2 d-flex justify-content-center align-items-center">
 				<p>
 					{{ card.race }}
 				</p>
 			</div>
-			<div class="row col-6">
+			<div class="row col-6 d-flex justify-content-center align-items-center">
 				<p>Atk:
 					{{ card.atk|default("has no atk")}}
 				</p>
 			</div>
-			<div class="row col-6">
+			<div class="row col-6 d-flex justify-content-center align-items-center">
 				<p>Def:
 					{{ card.def|default("has no def") }}
 				</p>
 			</div>
-			<div class="row col-12">
+			<div class="row col-12 d-flex justify-content-center align-items-center">
 				<p>Archetype:
 					{{ card.archetype|default("has no archetype") }}
 				</p>
 			</div>
 			<div id="fond">
-				<div class="row col-12">
+				<div class="row col-12 d-flex justify-content-center align-items-center">
 					<p>Description: </p>
 					<p class="w-100">
 						{{ card.description  | replace({'----------------------------------------': ' ', '[': "", ']': "\n"})| nl2br }}
 					</p>
 				</div>
-				<div class="row col-12">
+				<div class="row col-12 d-flex justify-content-center align-items-center">
 					<p>Price on Cardmarket:
 						{% if card.price == 0 %}
 						this card does not exist in TCG
