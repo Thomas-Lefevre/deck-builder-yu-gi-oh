@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('css/indexDeck.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/deck.css') }}">
 {% endblock stylesheets %}
 
 
@@ -26,7 +26,7 @@
             </a>
         </div>
         {% endfor %} 
-        {{ knp_pagination_render(decks) }}
     </div>
+    {{ knp_pagination_render(decks) }}
 </div>
 {% endblock %}

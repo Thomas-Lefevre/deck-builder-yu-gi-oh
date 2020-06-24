@@ -32,7 +32,15 @@ class DeckRepository extends ServiceEntityRepository
             ->setParameter('id', $idDeck);
         return $query->getQuery()->getSingleScalarResult();
     }
-
+    public function findAleaDeck()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     /*
         public function findOneBySomeField($value): ?Deck
         {

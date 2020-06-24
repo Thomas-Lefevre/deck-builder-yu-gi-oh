@@ -4,11 +4,22 @@
     width: 85vw;
 }
 body{
-    background-image: url(../img/wallpaper/cropped-1920-1080-875040.jpg);
+    background-image: url(../img/wallpaper/818946.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 #fondCouleur{
     background-color: rgb(245, 244, 242);
     border-radius: 5%;
     padding-top: 10px;
     opacity: 70%;
+}
+#listCard{
+    width: 100vw;
+    margin-left: -2vw;
+}
+h1{
+    color: white;
+    display: flex;
+    justify-content: center;
 }

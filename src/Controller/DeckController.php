@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Card;
 use App\Entity\Deck;
+use App\Entity\Note;
 use App\Entity\User;
 use App\Form\DeckType;
 use App\Data\SearchData;
 use App\Entity\DeckCard;
 use App\Form\SearchType;
+use App\Security\UserVoter;
 use App\Repository\CardRepository;
 use App\Repository\DeckRepository;
+use App\Repository\NoteRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,10 +82,9 @@ class DeckController extends AbstractController
         $deck->setNom('Deck name');
         $deck->setAuteur($user->getUsername());
         $deck->setFormat('Classic');
-        $deck->setNote(0);
         $deck->setPrix(0);
         $deck->setType('Fun');
-        $deck->setImg('');
+        $deck->setImg('img/card/defaultCard.jpg');
         $deck->setDatePost(new \Datetime());
         $deck->setIdUser($user);
 
@@ -97,9 +99,13 @@ class DeckController extends AbstractController
     /**
      * @Route("/{id}", name="deck_show", methods={"GET"})
      */
-    public function show(Deck $deck): Response
+    public function show(Deck $deck, NoteRepository $noteRepository): Response
     {
+        $idDeck = $deck->getId();
+        $note = $noteRepository->noteDeck($idDeck);
+
         return $this->render('deck/show.html.twig', [
+            'note'=>$note,
             'deck' => $deck,
         ]);
     }
@@ -129,7 +135,6 @@ class DeckController extends AbstractController
         return $this->render('deck/edit.html.twig', [
             'cards' => $cards,
             'deck' => $deck,
-            // 'cardsInDeck' => $cardsInDeck,
             'form' => $form->createView(),
             'newDeckForm' => $newDeckForm->createView(),
         ]);
@@ -205,28 +210,28 @@ class DeckController extends AbstractController
         return $this->redirectToRoute('deck_edit', ['id' => $deck->getId()]);
     }
     /**
-     * @Route("/all_deck/{id_deck}/{id_user}/{note}", name="note", methods={"GET","POST"})
+     * @Route("/show_deck/{id_deck}/{id_user}/{note}", name="note", methods={"GET","POST"} , requirements={"note"="-1|1"})
      * @ParamConverter("deck",options={"id"= "id_deck"})
      * @ParamConverter("user",options={"id"= "id_user"})
      */
 
-    public function note(Request $request, Deck $deck, User $user, DeckRepository $deckRepository)
+    public function note(Request $request, Deck $deck, User $user, int $note)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $note = $entityManager->getRepository(DeckCard::class)->findOneBy(["deck" => $deck, "user" => $user]);
-        if (!$note && __GET('note')) {
-            $note = new Note();
-            if (__GET('note') === 1) {
-                $note->setNote(1);
-            }elseif (__GET('note') === 0) {
-                $note->setNote(-1);
-            }
+        $this->denyAccessUnlessGranted(UserVoter::NOTE , $user);
 
-        } else {
-           
+        $entityManager = $this->getDoctrine()->getManager();
+        $noteEntity = $entityManager->getRepository(Note::class)->findOneBy(["deck" => $deck, "user" => $user]);
+        
+        if (!$noteEntity){
+            $noteEntity = new Note();
+            $noteEntity->setUser($user);
+            $noteEntity->setDeck($deck);
+            $entityManager->persist($noteEntity);
         }
+        $noteEntity->setNote($note);
+
         $entityManager->flush();
 
-        return $this->redirectToRoute('deck_edit', ['id' => $deck->getId()]);
+        return $this->redirectToRoute('deck_show', ['id' => $deck->getId()]);
     }
 }

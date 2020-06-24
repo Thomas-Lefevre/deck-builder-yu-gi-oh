@@ -27,7 +27,7 @@ class AdminController extends AbstractController
      */
     public function indexDeck(DeckRepository $deckRepository)
     {
-        return $this->render('admin_deck/adminDeck.html.twig', [
+        return $this->render('admin/adminDeck.html.twig', [
             'decks' => $deckRepository->findAll(),
         ]);
     }
