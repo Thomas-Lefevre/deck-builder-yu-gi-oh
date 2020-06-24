@@ -166,12 +166,14 @@ class DeckController extends AbstractController
         $deckCard = $entityManager->getRepository(DeckCard::class)->findOneBy(["deck" => $deck, "card" => $card]);
         $idDeck = $deck->getId();
         $nbrCard = $deckRepository->cardsInDeck($idDeck);
+        $coutDeck = ($deck->getPrix() + $card->getPrice());
         if ($nbrCard < 60) {
             if ($deckCard) {
                 $nbr = $deckCard->getNbr();
                 if ($nbr < 3) {
                     $nbr++;
                     $deckCard->setNbr($nbr);
+                    $deck->setPrix($coutDeck);
                 }
             } else {
                 $deckCard = new DeckCard();
@@ -179,7 +181,9 @@ class DeckController extends AbstractController
                 $deckCard->setCard($card);
                 $deckCard->setNbr(1);
                 $entityManager->persist($deckCard);
+                $deck->setPrix($coutDeck);
             }
+            
             $entityManager->flush();
         }
         return $this->redirectToRoute('deck_edit', ['id' => $deck->getId()]);
@@ -194,9 +198,11 @@ class DeckController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $deckCard = $entityManager->getRepository(DeckCard::class)->findOneBy(["deck" => $deck, "card" => $card]);
+        $coutDeck = ($deck->getPrix() - $card->getPrice());
         if ($deckCard) {
             $nbr = $deckCard->getNbr();
             $nbr--;
+            $deck->setPrix($coutDeck);
             if ($nbr === 0) {
                 $entityManager->remove($deckCard);
             } else {
