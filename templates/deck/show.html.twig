@@ -2,55 +2,56 @@
 
 {% block title %}Deck{% endblock %}
 
-{% block body %}
-    <h1>Deck</h1>
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/showDeck.css') }}">
+{% endblock stylesheets %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ deck.id }}</td>
-            </tr>
-            <tr>
-                <th>Format</th>
-                <td>{{ deck.format }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ deck.nom }}</td>
-            </tr>
-            {# <tr>
-                <th>Note</th>
-                <td>{{ deck.note }}</td>
-            </tr> #}
-            <tr>
-                <th>Prix</th>
-                <td>{{ deck.prix }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ deck.type }}</td>
-            </tr>
-            <tr>
-                <th>Date_post</th>
-                <td>{{ deck.datePost ? deck.datePost|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Img</th>
-                <td>{{ deck.img }}</td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ deck.auteur }}</td>
-            </tr>
-        </tbody>
-    </table>
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row col-12  font-weight-bold">
+		<div class="col-4">
+			<img src="{{ asset(deck.img) }}" alt="{{deck.nom}}">
+		</div>
+		<div id="fondCouleur" class="row col-5 ml-5">
+			<div class="row col-12 d-flex justify-content-center align-items-center">
+				<p>Name:
+					{{ deck.nom }}</p>
+			</div>
+			<div class="row col-6 d-flex justify-content-center align-items-center">
+				<p>Format:
+					{{ deck.format}}</p>
+			</div>
+			<div class="row col-6 d-flex justify-content-center align-items-center">
+				<p>
+					Type:
+					{{deck.type}}
+				</p>
+			</div>
+			<div class="row col-6 d-flex justify-content-center align-items-center">
+				<p>Price:
+					{{ deck.prix }}
+				</p>
+			</div>
+			<div class="row col-6 d-flex justify-content-center align-items-center">
+				<p>Date of creation: 
+					{{ deck.datePost|date('d/m/Y') }}
+				</p>
+			</div>
+			<div class="row col-12 d-flex justify-content-center align-items-center">
+				<p>Author:
+					{{ deck.auteur}}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
 
     <a href="{{ path('all_deck') }}">back to list</a>
 
     <a href="{{ path('my_deck') }}">back to my list</a>
 
-    <a href="{{ path('deck_edit', {'id': deck.id}) }}">edit</a>
+    {# <a href="{{ path('deck_edit', {'id': deck.id}) }}">edit</a> #}
 
-    {{ include('deck/_delete_form.html.twig') }}
+    {# {{ include('deck/_delete_form.html.twig') }} #}
 {% endblock %}
