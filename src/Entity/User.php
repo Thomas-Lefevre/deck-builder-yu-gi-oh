@@ -44,7 +44,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\OneToMany(targetEntity=Deck::class, mappedBy="id_user")
+     * @ORM\OneToMany(targetEntity=Deck::class, mappedBy="user")
      */
     private $decks;
 
@@ -167,7 +167,7 @@ class User implements UserInterface
     {
         if (!$this->decks->contains($deck)) {
             $this->decks[] = $deck;
-            $deck->setIdUser($this);
+            $deck->setUser($this);
         }
 
         return $this;
@@ -178,8 +178,8 @@ class User implements UserInterface
         if ($this->decks->contains($deck)) {
             $this->decks->removeElement($deck); 
             // set the owning side to null (unless already changed)
-            if ($deck->getIdUser() === $this) {
-                $deck->setIdUser(null);
+            if ($deck->getUser() === $this) {
+                $deck->setUser(null);
             }
         }
 

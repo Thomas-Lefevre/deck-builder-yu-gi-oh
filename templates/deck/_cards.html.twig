@@ -2,7 +2,7 @@
 {% if orderBy is empty %}
 	{% set orderBy = "nom" %}
 {% endif %}
-{% for card in cards | sort((a,b) => attribute(a,orderBy) <=> attribute(b,orderBy) )%}
+{% for card in cards %}
 	<div class="card">
 		<a href="{{ path('insert_card_in_deck' , {'id_card' :card.id ,'id_deck' : deck.id }) }}">
 			<img src="{{ asset(card.img)}}" alt="{{card.nom}}"class="card-img-top">

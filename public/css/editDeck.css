@@ -30,14 +30,39 @@
 .inline{
     display: inline-block;
 }
-/*
-.card:hover{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 35%;
-    z-index: 15;
+
+.bouton{
+    float: left;
+    margin-right: 1rem;
+    display: block;
+    background-color: #007bff;
+    height: 38px;
+    line-height: 38px;
+    width: 6.8rem;
+    border-radius: .3rem;
+    color: white;
+    padding: 0 1rem 0 1rem;
+}
+.bouton:hover{
+    text-decoration: none;
+    background-color: #0069D9;
+    color: white;
+}
+#deck_Update{
+    float: left;
+    margin-right: 1rem;
+}
+.deck{
+   
     
-} */
-
-
+    
+}
+.borderDeck{
+    margin-left: 1rem;
+    background-color:rgba(212, 212, 212, 0.712);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.deck a{
+    color: black;
+}

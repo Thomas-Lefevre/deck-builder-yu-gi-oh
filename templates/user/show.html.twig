@@ -8,24 +8,31 @@
 {% block title %}Profile of {{ user.username }} {% endblock %}
 
 {% block body %}
-<h1 class="username text-white font-weight-bold"> {{ user.username }} </h1>
 <div class="container-fluid text-white">
     <div class="row col-12">
-        <div class="col6">
-            <img src="{{asset(app.user.avatar)}}" alt="avatar">
+        <div class="col-md-4 offset-md-2">
+            <img class="d-block mr-auto ml-auto w-100"src="{{asset(app.user.avatar)}}" alt="avatar">
         </div>
-        <div class="row col-6 ml-5">
-            <div class="fond row col-12">
-                <p id="centreEmail" class="font-weight-bold">Email: <br> {{ user.email }}</p>
-            </div>
-            <div class="fond row col-12">
-                <p id="centreUsername" class="font-weight-bold">Username: <br> {{ user.username }}</p>
+        <div class="row col-md-6 ml-md-0 ">
+            <div class="mt-auto mb-auto w-100">
+                <div class="row col-12 mb-5">
+                    <h1 class="username text-white font-weight-bold ml-auto mr-auto"> {{ user.username }} </h1>
+                </div>
+                <div class="fond row col-12">
+
+                    <p class="font-weight-bold ml-auto mr-auto">Email: <br> {{ user.email }}</p>
+                </div>
+                <div class="fond row col-12">
+                    <p class="font-weight-bold ml-auto mr-auto">Username: <br> {{ user.username }}</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div id="buttonEdit">
-    <button type="button" class="btn btn-secondary font-weight-bold"> <a class="text-white"
-            href="{{ path('user_edit', {'id': user.id}) }}">EDIT</a> </button>
-</div>
-{% endblock %}
+{% if app.user.id is same as(user.id) %}
+    <div id="buttonEdit">
+        <button type="button" class="btn btn-secondary font-weight-bold"> <a class="text-white"
+                href="{{ path('user_edit', {'id': user.id}) }}">EDIT</a> </button>
+    </div>
+{% endif %}
+{% endblock body %}

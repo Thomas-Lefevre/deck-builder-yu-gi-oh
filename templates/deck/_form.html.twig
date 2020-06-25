@@ -3,7 +3,9 @@
         {{ form_row(newDeckForm.format)}}
         {{ form_row(newDeckForm.type)}}
         <div>
-			{% include 'deck/_deck.html.twig' %}
-		</div>
+	        {% include 'deck/_deck.html.twig' %}
+	</div>
         {{ form_row(newDeckForm.Update)}}
+        <a class="bouton" href="{{ path('my_deck') }}">back to list</a>
+
 {{ form_end(newDeckForm) }}

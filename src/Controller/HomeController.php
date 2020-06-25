@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     {
         $card = $cardRepository->findAleaCard();
         $deck = $deckRepository->findAleaDeck();
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/home.html.twig', [
             'card'=>$card,
             'deck'=>$deck,
             'controller_name' => 'HomeController',

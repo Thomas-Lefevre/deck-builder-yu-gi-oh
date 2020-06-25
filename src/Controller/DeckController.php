@@ -10,7 +10,7 @@ use App\Form\DeckType;
 use App\Data\SearchData;
 use App\Entity\DeckCard;
 use App\Form\SearchType;
-use App\Security\UserVoter;
+use App\Security\DeckVoter;
 use App\Repository\CardRepository;
 use App\Repository\DeckRepository;
 use App\Repository\NoteRepository;
@@ -53,7 +53,7 @@ class DeckController extends AbstractController
     public function myDeck(Request $request, DeckRepository $deckRepository, PaginatorInterface $paginator): Response
     {
                 // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
-                $donnees = $this->getDoctrine()->getRepository(Deck::class)->findBy(["id_user" => $this->getUser()->getId()],['id' => 'desc']);
+                $donnees = $this->getDoctrine()->getRepository(Deck::class)->findBy(["user" => $this->getUser()->getId()],['id' => 'desc']);
 
                 $deck = $paginator->paginate(
                     $donnees, // Requête contenant les données à paginer (ici nos articles)
@@ -67,12 +67,6 @@ class DeckController extends AbstractController
         ]);
     }
 
-    // public function index(DeckRepository $deckRepository): Response
-    // {
-    //     return $this->render('deck/index.html.twig', [
-    //         'decks' => $deckRepository->findAll(),
-    //     ]);
-    // }
 
     /**
      * @Route("/new", name="deck_new", methods={"GET","POST"})
@@ -86,7 +80,7 @@ class DeckController extends AbstractController
         $deck->setType('Fun');
         $deck->setImg('img/card/defaultCard.jpg');
         $deck->setDatePost(new \Datetime());
-        $deck->setIdUser($user);
+        $deck->setUser($user);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($deck);
@@ -115,9 +109,12 @@ class DeckController extends AbstractController
      */
     public function edit(Request $request, Deck $deck, CardRepository $cardRepository, DeckRepository $deckRepository): Response
     {
+        $this->denyAccessUnlessGranted(DeckVoter::EDIT , $deck);
+
         $data = new SearchData();
         $newDeckForm = $this->createForm(DeckType::class, $deck);
         $form = $this->createForm(SearchType::class, $data);
+        $form->handleRequest($request);
         $newDeckForm->handleRequest($request);
         $cards = $cardRepository->findSearch($data);
         if ($request->get('ajax')) {

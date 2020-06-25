@@ -6,3 +6,19 @@ h1{
     display: flex;
     justify-content: center;
 }
+.card{
+    background-color: rgba(128, 128, 128, 0);
+    border: none;
+}
+.card-body{
+    color: #432420;
+    border-radius: 1rem;
+    background-color: rgba(212, 212, 212, 0.712);
+}
+.card-body:hover{
+    color: gray;
+
+}
+a:hover{
+    text-decoration: none;
+}

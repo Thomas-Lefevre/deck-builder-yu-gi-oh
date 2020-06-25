@@ -5,21 +5,21 @@
 {% endblock stylesheets %}
 
 
-{% block title %}Deck index{% endblock %}
+{% block title %}All decks{% endblock %}
 
 {% block body %}
-<h1>Deck index</h1>
+<h1 class="mt-4">All decks</h1>
 <div class="container-fluid p-0">
     <div class="row p-5 m-0">
           {% for deck in decks %}
         <div class="col-md-6 col-lg-2 p-3">
-            <a class="text-dark" href="{{ path('deck_show', {'id': deck.id}) }}">
-                <div class="card">
-                    <img class="card-img-top" src="{{asset(deck.img)}}" alt="image deck">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ deck.nom }}</h5>
-                        <p class="card-text">Author: {{ deck.auteur }}</p>
-                        <p class="card-text">Date: {{ deck.datePost ? deck.datePost|date('Y-m-d') : '' }}</p>
+            <a href="{{ path('deck_show', {'id': deck.id}) }}">
+                <div class="card ">
+                    <img class="card-img-top mb-3" src="{{asset(deck.img)}}" alt="image deck">
+                    <div class="card-body ">
+                        <h5 class="card-title text-center">{{ deck.nom }}</h5>
+                        <p class="card-text text-center">Author: {{ deck.auteur }}</p>
+                        <p class="card-text text-center">Date: {{ deck.datePost ? deck.datePost|date('Y-m-d') : '' }}</p>
                         {# <p class="card-text">Note: {{ deck.note }}</p> #}
                     </div>
                 </div>

@@ -4,7 +4,7 @@
     width: 85vw;
 }
 body{
-    background-image: url(../img/wallpaper/cropped-1920-1080-875040.jpg);
+    background-color: grey;
 }
 #fondCouleur{
     background-color: rgb(245, 244, 242);

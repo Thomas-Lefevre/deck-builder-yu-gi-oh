@@ -58,7 +58,7 @@ class Deck
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="decks")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $id_user;
+    private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=DeckCard::class, mappedBy="deck", orphanRemoval=true)
@@ -165,14 +165,14 @@ class Deck
         return $this;
     }
 
-    public function getIdUser(): ?user
+    public function getUser(): ?User
     {
-        return $this->id_user;
+        return $this->user;
     }
 
-    public function setIdUser(?user $id_user): self
+    public function setUser(?User $user): self
     {
-        $this->id_user = $id_user;
+        $this->user = $user;
 
         return $this;
     }

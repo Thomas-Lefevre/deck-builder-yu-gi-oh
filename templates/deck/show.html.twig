@@ -11,8 +11,8 @@
     <h1>Deck {{ deck.nom }} </h1>
 <div class="container-fluid">
     <div class="row col-12  font-weight-bold">
-        <div class="col-4">
-            <img src="{{ asset(deck.img) }}" alt="{{deck.nom}}">
+        <div class="col-4 mt-auto mb-auto">
+            <img class="w-100" src="{{ asset(deck.img) }}" alt="{{deck.nom}}">
         </div>
         <div id="fondCouleur" class="row col-5 ml-5">
             <div class="row col-12 d-flex justify-content-center align-items-center">
@@ -39,12 +39,15 @@
                     {{ deck.datePost|date('d/m/Y') }}
                 </p>
             </div>
-                        <div class="row col-6 d-flex justify-content-center align-items-center">
-                <p>Rate this deck :
-                    <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : 1}) }}">+</a>
-                    <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : -1}) }}">-</a>
-                </p>
-            </div>
+            {% if app.user %}
+                <div class="row col-6 d-flex justify-content-center align-items-center">
+                    <p>Rate this deck :
+                        <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : 1}) }}">+</a>
+                        <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : -1}) }}">-</a>
+                    </p>
+                </div>
+            {% endif %}
+            
             <div class="row col-6 d-flex justify-content-center align-items-center">
                 <p>Note:
                     {{ note}}
@@ -58,7 +61,17 @@
         </div>
     </div>
 </div>
+{% if app.user.username is same as(deck.auteur) %}
+    <div class="d-flex justify-content-around mt-3 mb-5">
+        <a href="{{ path('my_deck') }}"><button type="button" class="btn btn-dark">Back to my list</button></a> 
 
+        <a href="{{ path('deck_edit', {'id': deck.id}) }}"><button type="button" class="btn btn-dark">edit</button></a>
+
+        {{ include('deck/_delete_form.html.twig') }}
+    </div>
+{% else %}
+<p class="text-white">ca marche pas</p>
+{% endif %}
 <div id="listCard" class="container-fluid p-0">
     <h1>Deck list</h1>
     <div class="row p-5 m-0">

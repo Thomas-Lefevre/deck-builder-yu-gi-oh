@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Security\UserVoter;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,6 +47,8 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
+        $this->denyAccessUnlessGranted(UserVoter::VIEW , $user);
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -58,6 +61,8 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+        $this->denyAccessUnlessGranted(UserVoter::EDIT , $user);
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

@@ -2,16 +2,17 @@
 // src/Security/UserVoter.php
 namespace App\Security;
 
+use App\Entity\Deck;
 use App\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class UserVoter extends Voter
+class DeckVoter extends Voter
 {
     // these strings are just invented: you can use anything
     const VIEW = 'view';
     const EDIT = 'edit';
-    const NOTE = 'note';
+    const DEL = 'delete';
 
     protected function supports( $attribute, $subject)
     {
@@ -19,13 +20,13 @@ class UserVoter extends Voter
         if (!in_array($attribute, [
             self::VIEW, 
             self::EDIT,
-            self::NOTE
+            self::DEL
         ])) {
             return false;
         }
 
         // only vote on `User` objects
-        if (!$subject instanceof User) {
+        if (!$subject instanceof Deck) {
             return false;
         }
 
@@ -41,34 +42,33 @@ class UserVoter extends Voter
             return false;
         }
 
-        // you know $subject is a User object, thanks to `supports()`
-        /** @var User $user */
-        $user = $subject;
+        // you know $subject is a Deck object, thanks to `supports()`
+        /** @var Deck $deck */
+        $deck = $subject;
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($user, $currentUser);
+                return $this->canView($deck, $currentUser);
             case self::EDIT:
-                return $this->canEdit($user, $currentUser);
-            case self::NOTE:
-                return $this->canNote($user, $currentUser);
+                return $this->canEdit($deck, $currentUser);
+            case self::DEL:
+                return $this->canNote($deck, $currentUser);
         }
-
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canView(User $user, User $currentUser)
+    private function canView(Deck $deck, User $currentUser)
     {
-        return $user === $currentUser;
+        return true;
     }
 
-    private function canEdit(User $user, User $currentUser)
+    private function canEdit(Deck $deck, User $currentUser)
     {
-        return $user === $currentUser;
+        return $deck->getUser() === $currentUser;
     }
 
-    private function canNote(User $user, User $currentUser)
+    private function canNote(Deck $deck, User $currentUser)
     {
-        return $user === $currentUser;
+        return $deck === $currentUser;
     }
 }

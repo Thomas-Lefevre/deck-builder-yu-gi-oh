@@ -1,18 +1,22 @@
 body {
-    background-image: url(../img/wallpaper/yugioh-1.jpg);
-    background-repeat: no-repeat;
-    background-size: auto auto;
+    background-color:  #999999;
 }
 
 form {
     text-align: center;
 }
-
+.card{
+    margin-top: auto;
+    margin-bottom: auto;
+}
 #bar1 {
-    width: 50%;
+    width: 75%;
     border: 2px black;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+}
+.card{
+    border-radius: 1rem;
 }
