@@ -11,6 +11,7 @@ use App\Data\SearchData;
 use App\Entity\DeckCard;
 use App\Form\SearchType;
 use App\Security\DeckVoter;
+use App\Security\UserVoter;
 use App\Repository\CardRepository;
 use App\Repository\DeckRepository;
 use App\Repository\NoteRepository;
