@@ -1,92 +1,102 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Deck{% endblock %}
+{% block title %}Deck
+{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/showDeck.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/showDeck.css') }}">
 {% endblock stylesheets %}
 
 
 {% block body %}
-    <h1>Deck {{ deck.nom }} </h1>
-<div class="container-fluid">
-    <div class="row col-12  font-weight-bold">
-        <div class="col-4 mt-auto mb-auto">
-            <img class="w-100" src="{{ asset(deck.img) }}" alt="{{deck.nom}}">
-        </div>
-        <div id="fondCouleur" class="row col-5 ml-5">
-            <div class="row col-12 d-flex justify-content-center align-items-center">
-                <p>Name:
-                    {{ deck.nom }}</p>
-            </div>
-            <div class="row col-6 d-flex justify-content-center align-items-center">
-                <p>Format:
-                    {{ deck.format}}</p>
-            </div>
-            <div class="row col-6 d-flex justify-content-center align-items-center">
-                <p>
-                    Type:
-                    {{deck.type}}
-                </p>
-            </div>
-            <div class="row col-6 d-flex justify-content-center align-items-center">
-                <p>Price:
-                    {{ deck.prix }}
-                </p>
-            </div>
-            <div class="row col-6 d-flex justify-content-center align-items-center">
-                <p>Date of creation:
-                    {{ deck.datePost|date('d/m/Y') }}
-                </p>
-            </div>
-            {% if app.user %}
-                <div class="row col-6 d-flex justify-content-center align-items-center">
-                    <p>Rate this deck :
-                        <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : 1}) }}">+</a>
-                        <a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : -1}) }}">-</a>
-                    </p>
-                </div>
-            {% endif %}
-            
-            <div class="row col-6 d-flex justify-content-center align-items-center">
-                <p>Note:
-                    {{ note}}
-                </p>
-            </div>
-            <div class="row col-12 d-flex justify-content-center align-items-center">
-                <p>Author:
-                    {{ deck.auteur}}
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-{% if app.user.username is same as(deck.auteur) %}
-    <div class="d-flex justify-content-around mt-3 mb-5">
-        <a href="{{ path('my_deck') }}"><button type="button" class="btn btn-dark">Back to my list</button></a> 
+<h2 class="text-center mt-4">
+    {{ deck.nom }}
+</h2>
+	<div class="container-fluid">
+		<div class="row col-12 mr-auto ml-auto font-weight-bold">
+			<div class="col-md-4 offset-md-1 mt-auto mb-auto">
+				<img class="w-100 mt-2" src="{{ asset(deck.img) }}" alt="{{deck.nom}}">
+			</div>
+			<div id="fondCouleur" class="row col-md-5 ml-md-5 mt-2">
+				<div class="row col-12 d-flex justify-content-center align-items-center">
+					<p>Name:
+						{{ deck.nom }}</p>
+				</div>
+				<div class="row col-6 d-flex justify-content-center align-items-center">
+					<p>Format:
+						{{ deck.format}}</p>
+				</div>
+				<div class="row col-6 d-flex justify-content-center align-items-center">
+					<p>
+						Type:
+						{{deck.type}}
+					</p>
+				</div>
+				<div class="row col-6 d-flex justify-content-center align-items-center">
+					<p>Price:
+						{{ deck.prix }}
+					</p>
+				</div>
+				<div class="row col-6 d-flex justify-content-center align-items-center">
+					<p>Date of creation:
+						{{ deck.datePost|date('d/m/Y') }}
+					</p>
+				</div>
+				{% if app.user %}
+					<div class="row col-6 d-flex justify-content-center align-items-center">
+						<p>Rate this deck :
+							<a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : 1}) }}">+</a>
+							<a href="{{ path('note' , {'id_user' : app.user.id ,'id_deck' : deck.id , 'note' : -1}) }}">-</a>
+						</p>
+					</div>
+				{% endif %}
 
-        <a href="{{ path('deck_edit', {'id': deck.id}) }}"><button type="button" class="btn btn-dark">edit</button></a>
+				<div class="row col-6 d-flex justify-content-center align-items-center">
+					<p>Note:
+						{{ note}}
+					</p>
+				</div>
+				<div class="row col-12 d-flex justify-content-center align-items-center">
+					<p>Author:
+						{{ deck.auteur}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if app.user %}
 
-        {{ include('deck/_delete_form.html.twig') }}
-    </div>
-{% else %}
-<p class="text-white">ca marche pas</p>
-{% endif %}
-<div id="listCard" class="container-fluid p-0">
-    <h1>Deck list</h1>
-    <div class="row p-5 m-0">
-        {% for deckCard in deck.deckCards %}
-            {% if deckCard.nbr > 0 %}
-                {% for i in 1..deckCard.nbr %}
-                    <div class="col-md-6 col-lg-2 p-3">
-                        <div class="card">
-                            <img class="card-img-top" src=" {{asset(deckCard.card.img)}} " alt="card in deck">
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-    </div>
-</div>
-<a class="d-flex justify-content-center" href="{{ path('all_deck') }}"><button type="button" class="btn btn-dark">Back to list</button></a>
+		{% if app.user.username is same as(deck.auteur) %}
+			<div class="d-flex justify-content-around mt-3 mb-5">
+				<a href="{{ path('my_deck') }}">
+					<button type="button" class="btn btn-dark">Back to my list</button>
+				</a>
+
+				<a href="{{ path('deck_edit', {'id': deck.id}) }}">
+					<button type="button" class="btn btn-dark">edit</button>
+				</a>
+
+				{{ include('deck/_delete_form.html.twig') }}
+			</div>
+		{% endif %}
+	{% endif %}
+	<div id="listCard" class="container-fluid p-0">
+		<h1>Deck list</h1>
+		<div class="row p-5 m-0">
+			{% for deckCard in deck.deckCards %}
+				{% if deckCard.nbr > 0 %}
+					{% for i in 1..deckCard.nbr %}
+						<div class="col-md-6 col-lg-2 p-3">
+							<div class="card">
+								<img class="card-img-top" src=" {{asset(deckCard.card.img)}} " alt="card in deck">
+							</div>
+						</div>
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+	<a class="d-flex justify-content-center" href="{{ path('all_deck') }}">
+		<button type="button" class="btn btn-dark">Back to list</button>
+	</a>
 {% endblock %}

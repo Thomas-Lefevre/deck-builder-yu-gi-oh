@@ -90,9 +90,6 @@ class CardRepository extends ServiceEntityRepository
                 case 'race':
                     $query = $query->orderBy('c.race' , 'ASC');
                     break; 
-                case 'nom':
-                    $query = $query->orderBy('c.nom' , 'ASC');
-                    break;
                 default:
                     $query = $query->orderBy('c.nom' , 'ASC');
                     break;
