@@ -1,11 +1,11 @@
 #acces{
     margin: auto;
     margin-top: 10vh;
-    padding-top: 22vh;
+    padding-top: 16vh;
     background-image: url(../img/dos_carte_yugioh.jpg);
     background-size: cover;
-    height: 700px;
-    width: 450px;
+    height: 500px;
+    width: 345px;
     text-align: center;
     font-size: 3em;
 }
