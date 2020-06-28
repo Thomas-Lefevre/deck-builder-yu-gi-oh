@@ -14,11 +14,14 @@ class HomeController extends AbstractController
      */
     public function index(CardRepository $cardRepository, DeckRepository $deckRepository)
     {
-        $card = $cardRepository->findAleaCard();
-        $deck = $deckRepository->findAleaDeck();
+        $randomCard = $cardRepository->findAleaCard();
+        $randomDeck = $deckRepository->findAleaDeck();
+        $newDeck = $deckRepository ->findAll();
+
         return $this->render('home/home.html.twig', [
-            'card'=>$card,
-            'deck'=>$deck,
+            'card'=>$randomCard,
+            'newDeck' => $newDeck,
+            'randomDeck'=>$randomDeck,
             'controller_name' => 'HomeController',
         ]);
     }

@@ -3,8 +3,9 @@
     width: 85vw;
 }
 body{
-    background-color: grey;
-}
+    background-image: url(../img/wallpaper/818946.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;}
 #fondCouleur{
     margin: 0 auto;
     background-color: rgb(245, 244, 242);

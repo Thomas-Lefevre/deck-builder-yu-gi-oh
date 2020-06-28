@@ -13,23 +13,115 @@
 		<div class="row col-12 m-0 p-0">
 
 
-			<div class="row col-9">
-				{% for i in 0..4 %}
-					<div class="col-12 ">
-						<div class="bg-warning mt-2">
-							Deck ici
+			<div class="row col-md-9">
+				<div class="row col-12 p-1 mr-auto ml-auto mt-5">
+				  <div class="col-md-3 mt-3">
+					  <a href="{{ path('deck_show', {'id': newDeck[0].id}) }}">
+						  <div class="card ">
+							  <img class="card-img-top mb-3" src="{{asset(newDeck[0].img)}}" alt="image deck">
+							  <div class="card-body ">
+								  <h5 class="card-title text-center">{{ newDeck[0].nom }}</h5>
+								  <p class="card-text text-center">Author: {{ newDeck[0].auteur }}</p>
+								  <p class="card-text text-center">Date: {{ newDeck[0].datePost ? newDeck[0].datePost|date('Y-m-d') : '' }}</p>
+							  </div>
+						  </div>
+					  </a>
+				  </div>
+				  <div class="col-md-3 mt-3">
+					<a href="{{ path('deck_show', {'id': newDeck[1].id}) }}">
+						<div class="card ">
+							<img class="card-img-top mb-3" src="{{asset(newDeck[1].img)}}" alt="image deck">
+							<div class="card-body ">
+								<h5 class="card-title text-center">{{ newDeck[1].nom }}</h5>
+								<p class="card-text text-center">Author: {{ newDeck[1].auteur }}</p>
+								<p class="card-text text-center">Date: {{ newDeck[1].datePost ? newDeck[1].datePost|date('Y-m-d') : '' }}</p>
+							</div>
 						</div>
-					</div>
-				{% endfor %}
+					</a>
+				</div>
+				<div class="col-md-3 mt-3">
+					<a href="{{ path('deck_show', {'id': newDeck[2].id}) }}">
+						<div class="card ">
+							<img class="card-img-top mb-3" src="{{asset(newDeck[2].img)}}" alt="image deck">
+							<div class="card-body ">
+								<h5 class="card-title text-center">{{ newDeck[2].nom }}</h5>
+								<p class="card-text text-center">Author: {{ newDeck[2].auteur }}</p>
+								<p class="card-text text-center">Date: {{ newDeck[2].datePost ? newDeck[2].datePost|date('Y-m-d') : '' }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-3 mt-3">
+					<a href="{{ path('deck_show', {'id': newDeck[3].id}) }}">
+						<div class="card ">
+							<img class="card-img-top mb-3" src="{{asset(newDeck[3].img)}}" alt="image deck">
+							<div class="card-body ">
+								<h5 class="card-title text-center">{{ newDeck[3].nom }}</h5>
+								<p class="card-text text-center">Author: {{ newDeck[3].auteur }}</p>
+								<p class="card-text text-center">Date: {{ newDeck[3].datePost ? newDeck[3].datePost|date('Y-m-d') : '' }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-3 mt-3">
+					<a href="{{ path('deck_show', {'id': newDeck[4].id}) }}">
+						<div class="card ">
+							<img class="card-img-top mb-3" src="{{asset(newDeck[4].img)}}" alt="image deck">
+							<div class="card-body ">
+								<h5 class="card-title text-center">{{ newDeck[4].nom }}</h5>
+								<p class="card-text text-center">Author: {{ newDeck[4].auteur }}</p>
+								<p class="card-text text-center">Date: {{ newDeck[4].datePost ? newDeck[4].datePost|date('Y-m-d') : '' }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-3 mt-3">
+					<a href="{{ path('deck_show', {'id': newDeck[5].id}) }}">
+						<div class="card ">
+							<img class="card-img-top mb-3" src="{{asset(newDeck[5].img)}}" alt="image deck">
+							<div class="card-body ">
+								<h5 class="card-title text-center">{{ newDeck[5].nom }}</h5>
+								<p class="card-text text-center">Author: {{ newDeck[5].auteur }}</p>
+								<p class="card-text text-center">Date: {{ newDeck[5].datePost ? newDeck[5].datePost|date('Y-m-d') : '' }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-3 mt-3">
+					<a href="{{ path('deck_show', {'id': newDeck[6].id}) }}">
+						<div class="card ">
+							<img class="card-img-top mb-3" src="{{asset(newDeck[6].img)}}" alt="image deck">
+							<div class="card-body ">
+								<h5 class="card-title text-center">{{ newDeck[6].nom }}</h5>
+								<p class="card-text text-center">Author: {{ newDeck[6].auteur }}</p>
+								<p class="card-text text-center">Date: {{ newDeck[6].datePost ? newDeck[6].datePost|date('Y-m-d') : '' }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-3 mt-3">
+					<a href="{{ path('deck_show', {'id': newDeck[7].id}) }}">
+						<div class="card ">
+							<img class="card-img-top mb-3" src="{{asset(newDeck[7].img)}}" alt="image deck">
+							<div class="card-body ">
+								<h5 class="card-title text-center">{{ newDeck[7].nom }}</h5>
+								<p class="card-text text-center">Author: {{ newDeck[7].auteur }}</p>
+								<p class="card-text text-center">Date: {{ newDeck[7].datePost ? newDeck[7].datePost|date('Y-m-d') : '' }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+
+			  </div>
 			</div>
 			<div class="col-12 col-md-3 mr-auto ml-auto mt-2 p-0">
 				<div class="card ml-auto mr-auto" style="width: 90%">
 					<h5 class="card-title text-center pt-2">Random Deck !</h5>
-					<a href="{{ path('deck_show', {'id': deck[0].id}) }}" class="ml-auto mr-auto" style="width: 90%">
-						<img class="card-img-top" src="{{deck[0].img}}" alt="{{deck[0].nom}}">
+					<a href="{{ path('deck_show', {'id': randomDeck[0].id}) }}" class="ml-auto mr-auto" style="width: 90%">
+						<img class="card-img-top" src="{{randomDeck[0].img}}" alt="{{randomDeck[0].nom}}">
 					</a>
 					<div class="card-body">
-						<h5 class="card-text text-center">{{deck[0].nom}}</h5>
+						<h5 class="card-text text-center">{{randomDeck[0].nom}}</h5>
 					</div>
 				</div>
 				<div class="card mt-3 ml-auto mr-auto mb-5 pb-4 " style="width: 90%">
