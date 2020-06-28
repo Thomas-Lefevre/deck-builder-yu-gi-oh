@@ -3,3 +3,6 @@ h1{
     justify-content: center;
     display: flex;
 }
+body{
+    background-image: url(../img/wallpaper/yu-gi-oh_banner.jpg);
+}
